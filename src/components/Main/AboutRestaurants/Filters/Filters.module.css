@@ -1,0 +1,54 @@
+.main{
+    display: flex;
+    flex-direction: column;
+}
+.heading{
+    font-family: 'Montserrat';
+    font-weight: 700;
+    font-size: 20px;
+    text-align: left;
+    margin: 0px 0px 20px 0px;
+}
+.prices{
+    display: flex;
+    margin-bottom: 10px;
+}
+.price{
+    padding: 7px 14px 7px 14px;
+    background-color: transparent;
+    outline: none;
+    border: 1px solid rgba(200,201,202,1);
+    font-family: 'Montserrat';
+    font-weight: normal;
+    font-size: 13px;
+    text-align: center;
+    cursor: pointer;
+}
+.price:hover{
+    background-color: rgb(238, 238, 238);
+    transition: all .2s;
+}
+.price.leftPrice{
+    padding-left: 15px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+.price.rightPrice{
+    padding-right: 15px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.isOpen{
+    font-family: 'Montserrat';
+    font-weight: normal;
+    font-size: 15px;
+}
+.label{
+    display: flex;
+    align-items: center;
+}
+.checkbox{
+    margin-right: 5px;
+width: 15px;
+height: 15px;
+}

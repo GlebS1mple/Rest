@@ -1,0 +1,119 @@
+p{
+    margin: 0px 0px 0px 0px;
+}
+
+.main{
+    padding: 15px;
+    display: flex;
+    font-family: 'Montserrat';
+    font-size: 15px;
+}
+.main:hover{
+    cursor: pointer;
+    box-shadow: 0 0 10px #0000001a;
+    transition: all 0.9s;
+}
+.img{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+.about{
+    display: flex;
+    flex-direction: column;
+}
+.name{
+    font-weight: 700;
+    font-size: 20px;
+    text-align: left;
+    margin: 0px 0px 0px 0px;
+    margin-bottom: 5px;
+}
+.rating{
+    display: flex;
+    margin-bottom: 5px;
+}
+.reviewsNumber{
+    font-weight: 500;
+}
+.info{
+    display: flex;
+    color: grey;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+.address{
+    margin-right: 5px;
+}
+.time{
+    display: flex;
+    margin-bottom: 5px;
+}
+.isOpen{
+    margin-right: 5px;
+    color: green;
+}
+.food{
+    display: flex;
+    max-width: 400px;
+    margin-bottom: 5px;
+    align-items: center;
+}
+.foodIcon{
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+}
+.foodText{
+    color: grey;
+    text-align: left;
+}
+.more{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: rgb(9, 9, 70);
+    cursor: pointer;
+    font-size: 17px;
+}
+.more:hover{
+    text-decoration: underline;
+    transition: all .2s;
+}
+.footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.features{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.link{
+    color: black;
+    text-decoration: none;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+.link:hover{
+    background-color: rgb(211, 197, 197);
+    transition: all .2s;
+}
+.phone{
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.phoneIcon{
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+}
+.phoneText{
+    font-size: 15px;
+    color:grey;
+}
