@@ -18,7 +18,9 @@ const Main = () => {
     return (
         <div className={s.main}>
             <AboutRestaurants />
-            <Map />
+            <div className={s.sticky}>
+                <Map />
+            </div>
         </div>
     );
 };
