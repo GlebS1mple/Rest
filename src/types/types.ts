@@ -34,3 +34,4 @@ export type LocationType = {
     state: string
     zip_code: string
 }
+export type PriceLevelType = '$' | '$$' | '$$$' | '$$$$'

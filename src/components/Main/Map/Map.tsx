@@ -1,4 +1,5 @@
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import { Marker } from "@react-google-maps/api";
 import React, { ReactElement, useRef, useEffect } from 'react';
 import s from './Map.module.css'
 
@@ -27,7 +28,7 @@ function MyMapComponent({
     //@ts-ignore
     return <div ref={ref} id="map" className={s.main} />;
 }
-const Marker: React.FC<google.maps.MarkerOptions> = (options) => {
+/* const Marker: React.FC<google.maps.MarkerOptions> = (options) => {
     const [marker, setMarker] = React.useState<google.maps.Marker>();
 
     React.useEffect(() => {
@@ -50,7 +51,7 @@ const Marker: React.FC<google.maps.MarkerOptions> = (options) => {
     }, [marker, options]);
 
     return null;
-};
+}; */
 function Map() {
     const center = { lat: 52, lng: 23 };
     const zoom = 10;
