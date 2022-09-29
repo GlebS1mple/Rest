@@ -34,7 +34,42 @@ export const actions = {
 type ThunkType = BaseThunkType<ActionsTypes>
 
 let initialState = {
-    restaurants: [] as Array<RestaurantsType>,
+    restaurants: [
+        /* {
+            rating: 4,
+            price: "$",
+            phone: "+14152520800",
+            id: "E8RJkjfdcwgtyoPMjQ_Olg",
+            alias: "four-barrel-coffee-san-francisco",
+            is_closed: true,
+            categories: [
+                {
+                    alias: "coffee",
+                    title: "Coffee & Tea"
+                }
+            ],
+            display_phone: '2',
+            review_count: 1738,
+            name: "Four Barrel Coffee",
+            url: "https://www.yelp.com/biz/four-barrel-coffee-san-francisco",
+            coordinates: {
+                latitude: 37.7670169511878,
+                longitude: -122.42184275
+            },
+            image_url: "http://s3-media2.fl.yelpcdn.com/bphoto/MmgtASP3l_t4tPCL1iAsCg/o.jpg",
+            location: {
+                city: "San Francisco",
+                country: "US",
+                address2: "",
+                address3: "",
+                state: "CA",
+                address1: "375 Valencia St",
+                zip_code: "94103"
+            },
+            distance: ' 1604.23',
+            transactions: ["pickup", "delivery"]
+        }, */
+    ] as Array<RestaurantsType>,
     filteredRestaurants: [] as Array<RestaurantsType>,
     priceLevel: '' as PriceLevelType | '',
     isClosed: true
@@ -61,8 +96,14 @@ const mainReducer = (state = initialState, action: ActionsTypes): InitialStateTy
             }
         }
         case "MAIN/SET_PRICE_LEVEL": {
+            /* if(state.filteredRestaurants.length!==0){
+                const newRestaurants = state.filteredRestaurants
+            let filteredRestaurants = state.restaurants.filter(rest => rest.price === state.priceLevel)
+            filteredRestaurants = newRestaurants.filter(rest => rest.is_closed === state.isClosed)
+        }*/
             return {
-                ...state, priceLevel: action.priceLevel
+                ...state,
+                priceLevel: action.priceLevel
             }
         }
         case "MAIN/IS_CLOSED": {

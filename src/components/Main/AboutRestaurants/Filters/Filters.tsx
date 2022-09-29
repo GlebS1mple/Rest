@@ -12,7 +12,7 @@ const Filters = () => {
     const priceLevel = useSelector<AppStateType, PriceLevelType | ''>(state => state.main.priceLevel)
     const isClosed = useSelector<AppStateType, boolean>(state => state.main.isClosed)
     const restaurants = useSelector<AppStateType, Array<RestaurantsType>>(state => state.main.restaurants)
-    const filteredRestaurnts = useSelector<AppStateType, Array<RestaurantsType>>(state => state.main.filteredRestaurants)
+    const filteredRestaurants = useSelector<AppStateType, Array<RestaurantsType>>(state => state.main.filteredRestaurants)
     const dispatch = useDispatch<Dispatch>()
     const changeHandler: (isClosed: boolean) => void = (isClosed) => {
         dispatch(actions.isClosedAC(isClosed))
@@ -23,31 +23,22 @@ const Filters = () => {
         dispatch(actions.setPriceLevelAC(button.textContent))
     }
     useEffect(() => {
-        if (filteredRestaurnts.length > 0) {
-            const newRestaurants = filteredRestaurnts
-            let filteredRestaurants = restaurants.filter(rest => rest.price === priceLevel)
-            filteredRestaurants = newRestaurants.filter(rest => rest.is_closed === isClosed)
-            dispatch(actions.setFilteredRestaurantsAC(filteredRestaurants))
+        if (filteredRestaurants.length !== 0) {
+            let newRestaurants = restaurants.filter(rest => rest.price === priceLevel)
+            dispatch(actions.setFilteredRestaurantsAC(newRestaurants))
+            if (!isClosed) {
+                let someRestaurants = newRestaurants.filter(rest => rest.is_closed === isClosed)
+                dispatch(actions.setFilteredRestaurantsAC(someRestaurants))
+            }
         }
-        let filteredRestaurants = restaurants.filter(rest => rest.price === priceLevel)
-        /* if (filteredRestaurants.length === 0) {
-            alert('Sorry, we dont have such restaurants') TO DO
-        } */
-        dispatch(actions.setFilteredRestaurantsAC(filteredRestaurants))
-    }, [priceLevel])
-    useEffect(() => {
-        if (filteredRestaurnts.length > 0) {
-            const newRestaurants = filteredRestaurnts
-            let filteredRestaurants = newRestaurants.filter(rest => rest.is_closed === isClosed)
-            filteredRestaurants = restaurants.filter(rest => rest.price === priceLevel)
-            dispatch(actions.setFilteredRestaurantsAC(filteredRestaurants))
-        }
-        let filteredRestaurants = restaurants.filter(rest => rest.is_closed === isClosed)
-        dispatch(actions.setFilteredRestaurantsAC(filteredRestaurants))
-        /* if (filteredRestaurants.length === 0) {
-            alert('Sorry, we dont have such restaurants') TO DO
-        } */
-    }, [isClosed])
+        let filtered = restaurants.filter(rest => rest.price === priceLevel)
+        dispatch(actions.setFilteredRestaurantsAC(filtered))
+    }, [priceLevel, isClosed])
+    /*     useEffect(() => {
+            let filtered = restaurants.filter(rest => rest.is_closed === isClosed)
+            dispatch(actions.setFilteredRestaurantsAC(filtered))
+        }, [isClosed]) */
+
     return (
         <div className={s.main}>
             <h3 className={s.heading}>Filters</h3>
