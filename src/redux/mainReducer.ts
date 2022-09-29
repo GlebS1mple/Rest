@@ -82,6 +82,13 @@ export const getRestaurantsThunk = (): ThunkType => async (dispatch: Dispatch) =
     }
     catch (error: any) { alert(error.message) }
 }
+export const searchRestaurantsThunk = (term: string, location: string): ThunkType => async (dispatch: Dispatch) => {
+    try {
+        let data = await resturantsAPI.getNewRestaurants(term, location);
+        dispatch(actions.setRestaurantsAC(data));
+    }
+    catch (error: any) { alert(error.message) }
+}
 export type InitialStateType = typeof initialState;
 const mainReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {

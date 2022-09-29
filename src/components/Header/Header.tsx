@@ -1,9 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import s from './Header.module.css'
 import logo from '../../../src/img/Logo.png'
 import search from '../../..//src/img/search.png'
+import { useDispatch } from 'react-redux';
+import { actions, searchRestaurantsThunk } from './../../redux/mainReducer';
+import { useEffect } from 'react';
+import useDebounce from './../../hooks/useDebounce';
+import { useSelector } from 'react-redux';
+import { AppStateType } from '../../redux/store';
+import { RestaurantsType } from '../../types/types';
 
-const Header = () => {
+const Header: React.FC = () => {
+    const [location, setLocation] = useState<string>('NewYork')
+    const [restaurant, setRestaurant] = useState<string>('ParkSocial')
+    const dispatch = useDispatch()
+    const debouncedSearchTerm = useDebounce(location, 500);
+    const debouncedSearchRestaurant = useDebounce(restaurant, 500);
+    const restaurants = useSelector<AppStateType, Array<RestaurantsType>>(state => state.main.restaurants)
+    useEffect(
+        () => {
+            //@ts-ignore
+            dispatch(searchRestaurantsThunk('restaurants', location))
+        },
+        [debouncedSearchTerm]
+    );
+
+    useEffect(
+        () => {
+            if (restaurants.length > 0) {
+                let searchedRestaurants = restaurants.filter((rest) => {
+                    return rest.name.toLowerCase().includes(restaurant.toLowerCase());
+                }, []);
+                dispatch(actions.setFilteredRestaurantsAC(searchedRestaurants));
+            }
+            //@ts-ignore
+            dispatch(searchRestaurantsThunk('restaurants', location))
+        },
+        [debouncedSearchRestaurant]
+    );
     return (
         <div className={s.main}>
             <div className={s.container}>
@@ -14,8 +48,8 @@ const Header = () => {
                 <div className={s.search}>
                     <form className={s.form}>
                         <div className={s.inputs}>
-                            <input type="text" placeholder='Restaurants' className={`${s.searchInput} ${s.serchInputRestaurants}`} />
-                            <input type="text" placeholder='New York' className={s.searchInput} />
+                            <input onChange={(e) => setRestaurant(e.target.value)} type="text" placeholder='Restaurants' className={`${s.searchInput} ${s.serchInputRestaurants}`} />
+                            <input onChange={(e) => setLocation(e.target.value)} type="text" placeholder='New York' className={s.searchInput} />
                         </div>
                         <button className={s.searchButton}>
                             <img src={search} alt="Search" className={s.searchImg} />
