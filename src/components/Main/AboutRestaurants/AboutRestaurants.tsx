@@ -3,7 +3,7 @@ import Restaurants from './Restaurants/Restaurants';
 import Filters from './Filters/Filters';
 import s from '../AboutRestaurants/AboutRestaurants.module.css'
 
-const AboutRestaurants = () => {
+const AboutRestaurants: React.FC = () => {
     return (
         <div className={s.main}>
             <Filters />

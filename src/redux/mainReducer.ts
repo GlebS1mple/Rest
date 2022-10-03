@@ -104,11 +104,6 @@ const mainReducer = (state = initialState, action: ActionsTypes): InitialStateTy
             }
         }
         case "MAIN/SET_PRICE_LEVEL": {
-            /* if(state.filteredRestaurants.length!==0){
-                const newRestaurants = state.filteredRestaurants
-            let filteredRestaurants = state.restaurants.filter(rest => rest.price === state.priceLevel)
-            filteredRestaurants = newRestaurants.filter(rest => rest.is_closed === state.isClosed)
-        }*/
             return {
                 ...state,
                 priceLevel: action.priceLevel

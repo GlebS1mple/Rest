@@ -4,12 +4,10 @@ import s from '../Main/Main.module.css'
 import AboutRestaurants from './AboutRestaurants/AboutRestaurants';
 import { useEffect } from 'react';
 import { getRestaurantsThunk } from '../../redux/mainReducer';
-import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { resturantsAPI } from './../../api/api';
 
 
-const Main = () => {
+const Main: React.FC = () => {
     let dispatch = useDispatch()
     useEffect(() => {
         //@ts-ignore

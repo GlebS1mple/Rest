@@ -7,8 +7,7 @@ import { AppStateType } from '../../../../redux/store';
 import { PriceLevelType, RestaurantsType } from '../../../../types/types';
 
 
-
-const Filters = () => {
+const Filters: React.FC = () => {
     const priceLevel = useSelector<AppStateType, PriceLevelType | ''>(state => state.main.priceLevel)
     const isClosed = useSelector<AppStateType, boolean>(state => state.main.isClosed)
     const restaurants = useSelector<AppStateType, Array<RestaurantsType>>(state => state.main.restaurants)
