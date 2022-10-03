@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import s from './Header.module.css'
 import logo from '../../../src/img/Logo.png'
-import search from '../../..//src/img/search.png'
+import searchPhoto from '../../..//src/img/search.png'
 import { useDispatch } from 'react-redux';
 import { actions, searchRestaurantsThunk } from './../../redux/mainReducer';
 import { useEffect } from 'react';
@@ -12,32 +12,47 @@ import { RestaurantsType } from '../../types/types';
 
 const Header: React.FC = () => {
     const [location, setLocation] = useState<string>('NewYork')
-    const [restaurant, setRestaurant] = useState<string>('ParkSocial')
+    const [restaurant, setRestaurant] = useState<string>('restaurants')
     const dispatch = useDispatch()
     const debouncedSearchTerm = useDebounce(location, 500);
     const debouncedSearchRestaurant = useDebounce(restaurant, 500);
     const restaurants = useSelector<AppStateType, Array<RestaurantsType>>(state => state.main.restaurants)
-    useEffect(
-        () => {
-            //@ts-ignore
-            dispatch(searchRestaurantsThunk('restaurants', location))
-        },
-        [debouncedSearchTerm]
-    );
+    const search = (e: React.MouseEvent<HTMLElement>) => {
+        e.preventDefault()
 
-    useEffect(
-        () => {
-            if (restaurants.length > 0) {
-                let searchedRestaurants = restaurants.filter((rest) => {
-                    return rest.name.toLowerCase().includes(restaurant.toLowerCase());
-                }, []);
-                dispatch(actions.setFilteredRestaurantsAC(searchedRestaurants));
-            }
-            //@ts-ignore
-            dispatch(searchRestaurantsThunk('restaurants', location))
-        },
-        [debouncedSearchRestaurant]
-    );
+
+        //@ts-ignore
+        dispatch(searchRestaurantsThunk(restaurant, location))
+        /*         if (restaurants.length > 0 && restaurant) {
+                    let searchedRestaurants = restaurants.filter((rest) => {
+                        return rest.name.toLowerCase().includes(restaurant.toLowerCase());
+                    }, []);
+                    //@ts-ignore
+                    dispatch(actions.setFilteredRestaurantsAC(searchedRestaurants));
+                } */
+
+    }
+    /*     useEffect(
+            () => {
+                //@ts-ignore
+                dispatch(searchRestaurantsThunk('restaurants', location))
+            },
+            [debouncedSearchTerm]
+        );
+    
+        useEffect(
+            () => {
+                if (restaurants.length > 0) {
+                    let searchedRestaurants = restaurants.filter((rest) => {
+                        return rest.name.toLowerCase().includes(restaurant.toLowerCase());
+                    }, []);
+                    dispatch(actions.setFilteredRestaurantsAC(searchedRestaurants));
+                } */
+    /*             //@ts-ignore
+                dispatch(searchRestaurantsThunk('restaurants', location)) */
+    /*         },
+            [debouncedSearchRestaurant]
+        ); */
     return (
         <div className={s.main}>
             <div className={s.container}>
@@ -51,8 +66,8 @@ const Header: React.FC = () => {
                             <input onChange={(e) => setRestaurant(e.target.value)} type="text" placeholder='Restaurants' className={`${s.searchInput} ${s.serchInputRestaurants}`} />
                             <input onChange={(e) => setLocation(e.target.value)} type="text" placeholder='New York' className={s.searchInput} />
                         </div>
-                        <button className={s.searchButton}>
-                            <img src={search} alt="Search" className={s.searchImg} />
+                        <button onClick={search} className={s.searchButton}>
+                            <img src={searchPhoto} alt="Search" className={s.searchImg} />
                         </button>
                     </form>
 

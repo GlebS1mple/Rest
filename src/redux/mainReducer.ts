@@ -86,6 +86,7 @@ export const searchRestaurantsThunk = (term: string, location: string): ThunkTyp
     try {
         let data = await resturantsAPI.getNewRestaurants(term, location);
         dispatch(actions.setRestaurantsAC(data));
+        dispatch(actions.setFilteredRestaurantsAC([]))
     }
     catch (error: any) { alert(error.message) }
 }
