@@ -3,7 +3,7 @@ import { resturantsAPI } from "../api/api"
 import { RestaurantsType, PriceLevelType } from "../types/types"
 import { BaseThunkType, InferActionsType } from "./store"
 
-type ActionsTypes = InferActionsType<typeof actions>
+export type ActionsTypes = InferActionsType<typeof actions>
 export const actions = {
     setRestaurantsAC: (restaurants: Array<RestaurantsType>) => {
         return {
@@ -32,6 +32,7 @@ export const actions = {
 }
 
 type ThunkType = BaseThunkType<ActionsTypes>
+
 
 let initialState = {
     restaurants: [
@@ -74,7 +75,6 @@ let initialState = {
     priceLevel: '' as PriceLevelType | '',
     isClosed: true
 }
-
 export const getRestaurantsThunk = (): ThunkType => async (dispatch: Dispatch) => {
     try {
         let data = await resturantsAPI.getRestaurants();
