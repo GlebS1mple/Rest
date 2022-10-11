@@ -1,9 +1,9 @@
 import React from 'react';
-import Header from './components/Header/Header';
+import Header from '../Header/Header';
 import s from './App.module.css'
-import Main from './components/Main/Main';
+import Main from '../Main/Main';
 import { Provider } from 'react-redux';
-import store from './redux/store';
+import store from '../../redux/store';
 
 const App: React.FC = () => {
   return (
