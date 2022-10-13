@@ -1,12 +1,13 @@
 import { resturantsAPI } from '../api/api';
 import { PriceLevelType, RestaurantsType } from '../types/types';
-import mainReducer, { actions, ActionsTypes, getRestaurantsThunk,searchRestaurantsThunk } from './mainReducer';
+import mainReducer, { actions, getRestaurantsThunk, InitialStateType, searchRestaurantsThunk } from './mainReducer';
 
 let state = {
     restaurants: [],
     filteredRestaurants: [],
     priceLevel: '',
-    isClosed: true
+    isClosed: true,
+    mapCenter: { lat: 50, lng: 25 }
 }
 jest.mock("./../api/api")
 const restaurantsAPIMock = resturantsAPI as jest.Mocked<typeof resturantsAPI>
@@ -46,65 +47,86 @@ test('should handle getRestaurantsThunk', async () => {
     const getStateMock = jest.fn()
     let data = await thunk(dispatchMock, getStateMock, {})
     expect(dispatchMock).toBeCalledTimes(1)
-    expect(dispatchMock).toHaveBeenNthCalledWith(1,actions.setRestaurantsAC(data))
+    //@ts-ignore
+    expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setRestaurantsAC(data))
 })
 test('should handle searchRestaurantsThunk', async () => {
-    const thunk = searchRestaurantsThunk()
+    const thunk = searchRestaurantsThunk('restaurants', 'NY')
     const dispatchMock = jest.fn()
     const getStateMock = jest.fn()
     let data = await thunk(dispatchMock, getStateMock, {})
-    expect(dispatchMock).toBeCalledTimes(2)
-    expect(dispatchMock).toHaveBeenNthCalledWith(1,actions.setRestaurantsAC(data))
-    expect(dispatchMock).toHaveBeenNthCalledWith(2,actions.setFilteredRestaurantsAC([]))
+    expect(dispatchMock).toBeCalledTimes(3)
+    //@ts-ignore
+    expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setRestaurantsAC(data))
+    expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.setFilteredRestaurantsAC([]))
 })
 test('should return the initial state', () => {
-    expect(mainReducer(undefined, {})).toEqual(state)
+    expect(mainReducer(undefined, { type: 'MAIN/IS_CLOSED', isClosed: true })).toEqual(state)
 })
 
 test('should handle MAIN/IS_CLOSED', () => {
     const isClosedAction = {
-        type: "MAIN/IS_CLOSED",
+        type: 'MAIN/IS_CLOSED',
         isClosed: false
     };
+    //@ts-ignore
     expect(mainReducer({}, isClosedAction)).toEqual({
         isClosed: false
     });
 });
+test('should handle MAIN/MAP_CENTER', () => {
+    const setMapCenterAction = {
+        type: 'MAIN/MAP_CENTER',
+        mapCenter: { lat: 50, lng: 25 }
+    };
+    //@ts-ignore
+    expect(mainReducer({}, setMapCenterAction)).toEqual({
+        mapCenter: { lat: 50, lng: 25 }
+    });
+});
 test('should handle MAIN/SET_PRICE_LEVEL', () => {
-    const priceLevelAction:PriceLevelType = '$$'
-    expect(mainReducer({},actions.setPriceLevelAC(priceLevelAction))).toEqual({
-        priceLevel: '$$'
+    const priceLevelAction: PriceLevelType = '$$'
+    //@ts-ignore
+    expect(mainReducer({}, actions.setPriceLevelAC(priceLevelAction))).toEqual({
+        priceLevel: '$$',
+
     });
 });
 test('should handle MAIN/SET_FILTERED_RESTAURANTS', () => {
-    const previousState: RestaurantsType[] = []
-    const filteredRestaurants: RestaurantsType[]= [{
-            alias: 'Starbacks',
-            categories: [{ alias: 'Starbacks', title: 'Starbacks' }],
-            coordinates: { latitude: 0, longitude: 0 },
-            display_phone: '',
-            distance: '',
-            id: '',
-            image_url: '',
-            is_closed: true,
-            location: {
-                address1: '12',
-                address2: '14',
-                address3: '25',
-                city: 'London',
-                country: 'England',
-                display_address: [''],
-                state: '',
-                zip_code: '',
-            },
-            name: 'Starbacks',
-            phone: '',
-            price: '$$',
-            rating: 4.2,
-            review_count: 200,
-            transactions: [''],
-            url: '',
-        }]
+    const previousState: InitialStateType = {
+        restaurants: [],
+        filteredRestaurants: [],
+        priceLevel: "",
+        isClosed: false,
+        mapCenter: { lat: 0, lng: 0 }
+    }
+    const filteredRestaurants: RestaurantsType[] = [{
+        alias: 'Starbacks',
+        categories: [{ alias: 'Starbacks', title: 'Starbacks' }],
+        coordinates: { latitude: 0, longitude: 0 },
+        display_phone: '',
+        distance: '',
+        id: '',
+        image_url: '',
+        is_closed: true,
+        location: {
+            address1: '12',
+            address2: '14',
+            address3: '25',
+            city: 'London',
+            country: 'England',
+            display_address: [''],
+            state: '',
+            zip_code: '',
+        },
+        name: 'Starbacks',
+        phone: '',
+        price: '$$',
+        rating: 4.2,
+        review_count: 200,
+        transactions: [''],
+        url: '',
+    }]
     expect(mainReducer(previousState, actions.setFilteredRestaurantsAC(filteredRestaurants))).toEqual({
         filteredRestaurants: [{
             alias: 'Starbacks',
@@ -132,38 +154,47 @@ test('should handle MAIN/SET_FILTERED_RESTAURANTS', () => {
             review_count: 200,
             transactions: [''],
             url: '',
-        }]
+        }], restaurants: [],
+        priceLevel: "",
+        isClosed: false,
+        mapCenter: { lat: 0, lng: 0 }
     });
 });
 test('should handle MAIN/SET_RESTAURANTS', () => {
-    const previousState: RestaurantsType[] = []
-    const restaurants: RestaurantsType[]= [{
-            alias: 'Starbacks',
-            categories: [{ alias: 'Starbacks', title: 'Starbacks' }],
-            coordinates: { latitude: 0, longitude: 0 },
-            display_phone: '',
-            distance: '',
-            id: '',
-            image_url: '',
-            is_closed: true,
-            location: {
-                address1: '12',
-                address2: '14',
-                address3: '25',
-                city: 'London',
-                country: 'England',
-                display_address: [''],
-                state: '',
-                zip_code: '',
-            },
-            name: 'Starbacks',
-            phone: '',
-            price: '$$',
-            rating: 4.2,
-            review_count: 200,
-            transactions: [''],
-            url: '',
-        }]
+    const previousState: InitialStateType = {
+        restaurants: [],
+        filteredRestaurants: [],
+        priceLevel: "",
+        isClosed: false,
+        mapCenter: { lat: 0, lng: 0 }
+    }
+    const restaurants: RestaurantsType[] = [{
+        alias: 'Starbacks',
+        categories: [{ alias: 'Starbacks', title: 'Starbacks' }],
+        coordinates: { latitude: 0, longitude: 0 },
+        display_phone: '',
+        distance: '',
+        id: '',
+        image_url: '',
+        is_closed: true,
+        location: {
+            address1: '12',
+            address2: '14',
+            address3: '25',
+            city: 'London',
+            country: 'England',
+            display_address: [''],
+            state: '',
+            zip_code: '',
+        },
+        name: 'Starbacks',
+        phone: '',
+        price: '$$',
+        rating: 4.2,
+        review_count: 200,
+        transactions: [''],
+        url: '',
+    }]
     expect(mainReducer(previousState, actions.setRestaurantsAC(restaurants))).toEqual({
         restaurants: [{
             alias: 'Starbacks',
@@ -191,6 +222,10 @@ test('should handle MAIN/SET_RESTAURANTS', () => {
             review_count: 200,
             transactions: [''],
             url: '',
-        }]
+        }],
+        filteredRestaurants: [],
+        priceLevel: "",
+        isClosed: false,
+        mapCenter: { lat: 0, lng: 0 }
     });
 });

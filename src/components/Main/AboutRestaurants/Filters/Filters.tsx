@@ -41,8 +41,8 @@ const Filters: React.FC = () => {
     return (
         <div className={s.main}>
             <h3 className={s.heading}>Filters</h3>
-            <div onClick={(e: any) => clickHandler(e)} className={s.prices}>
-                <button data-testid='price' className={`${s.price} ${s.leftPrice}`}>$</button>
+            <div role='button' onClick={(e: any) => clickHandler(e)} className={s.prices}>
+                <button className={`${s.price} ${s.leftPrice}`}>$</button>
                 <button className={s.price}>$$</button>
                 <button className={s.price}>$$$</button>
                 <button className={`${s.price} ${s.rightPrice}`}>$$$$</button>

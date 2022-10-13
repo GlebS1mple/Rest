@@ -1,7 +1,9 @@
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import { Marker } from "@react-google-maps/api";
+
 import React, { ReactElement, useRef, useEffect } from 'react';
 import s from './Map.module.css'
+import { useSelector } from 'react-redux';
+import { AppStateType } from "../../../redux/store";
 
 const render = (status: Status): ReactElement => {
     if (status === Status.FAILURE) return <div>Error...</div>;
@@ -28,7 +30,7 @@ function MyMapComponent({
     //@ts-ignore
     return <div ref={ref} id="map" className={s.main} />;
 }
-/* const Marker: React.FC<google.maps.MarkerOptions> = (options) => {
+const Marker: React.FC<google.maps.MarkerOptions> = (options) => {
     const [marker, setMarker] = React.useState<google.maps.Marker>();
 
     React.useEffect(() => {
@@ -51,16 +53,16 @@ function MyMapComponent({
     }, [marker, options]);
 
     return null;
-}; */
+};
 function Map() {
-    const center = { lat: 52, lng: 23 };
+    const center = useSelector<AppStateType, { lat: number, lng: number }>(state => state.main.mapCenter)
     const zoom = 10;
 
     return (
         //@ts-ignore
         <Wrapper className={s.wrapper} apiKey={process.env.REACT_APP_API_GOOGLE_KEY} render={render}>
             <MyMapComponent center={center} zoom={zoom}>
-                <Marker position={{ lat: 52, lng: 23 }} />
+                <Marker position={center} />
             </MyMapComponent>
 
         </Wrapper>

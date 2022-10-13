@@ -29,6 +29,12 @@ export const actions = {
             isClosed: isClosed
         } as const
     },
+    setMapCenter: (mapCenter: { lat: number, lng: number }) => {
+        return {
+            type: "MAIN/MAP_CENTER",
+            mapCenter: mapCenter
+        } as const
+    },
 }
 
 type ThunkType = BaseThunkType<ActionsTypes>
@@ -73,20 +79,30 @@ let initialState = {
     ] as Array<RestaurantsType>,
     filteredRestaurants: [] as Array<RestaurantsType>,
     priceLevel: '' as PriceLevelType | '',
-    isClosed: true
+    isClosed: true,
+    mapCenter: { lat: 50, lng: 25 }
 }
 export const getRestaurantsThunk = (): ThunkType => async (dispatch: Dispatch) => {
     try {
         let data = await resturantsAPI.getRestaurants();
-        dispatch(actions.setRestaurantsAC(data));
+        dispatch(actions.setRestaurantsAC(data))
+        //@ts-ignore
+        let newCoordinates = Object.values(data[0].coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })
+        //@ts-ignore
+        dispatch(actions.setMapCenter(newCoordinates))
     }
     catch (error: any) { alert(error.message) }
 }
 export const searchRestaurantsThunk = (term: string, location: string): ThunkType => async (dispatch: Dispatch) => {
     try {
         let data = await resturantsAPI.getNewRestaurants(term, location);
-        dispatch(actions.setRestaurantsAC(data));
+        dispatch(actions.setRestaurantsAC(data))
         dispatch(actions.setFilteredRestaurantsAC([]))
+        dispatch(actions.setRestaurantsAC(data));
+        //@ts-ignore
+        let newCoordinates = Object.values(data[0].coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })
+        //@ts-ignore
+        dispatch(actions.setMapCenter(newCoordinates))
     }
     catch (error: any) { alert(error.message) }
 }
@@ -112,6 +128,11 @@ const mainReducer = (state = initialState, action: ActionsTypes): InitialStateTy
         case "MAIN/IS_CLOSED": {
             return {
                 ...state, isClosed: action.isClosed
+            }
+        }
+        case "MAIN/MAP_CENTER": {
+            return {
+                ...state, mapCenter: action.mapCenter
             }
         }
         default: return state
