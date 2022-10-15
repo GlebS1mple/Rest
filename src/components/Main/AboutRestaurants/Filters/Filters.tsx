@@ -25,13 +25,25 @@ const Filters: React.FC = () => {
         if (filteredRestaurants.length !== 0) {
             let newRestaurants = restaurants.filter(rest => rest.price === priceLevel)
             dispatch(actions.setFilteredRestaurantsAC(newRestaurants))
+            if (newRestaurants.length > 0) {
+                //@ts-ignore
+                dispatch(actions.setMapCenter(Object.values(newRestaurants[0].coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })))
+            }
             if (!isClosed) {
                 let someRestaurants = newRestaurants.filter(rest => rest.is_closed === isClosed)
                 dispatch(actions.setFilteredRestaurantsAC(someRestaurants))
+                if (someRestaurants.length > 0) {
+                    //@ts-ignore
+                    dispatch(actions.setMapCenter(Object.values(someRestaurants[0].coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })))
+                }
             }
         }
         let filtered = restaurants.filter(rest => rest.price === priceLevel)
         dispatch(actions.setFilteredRestaurantsAC(filtered))
+        if (filtered.length > 0) {
+            //@ts-ignore
+            dispatch(actions.setMapCenter(Object.values(filtered[0].coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })))
+        }
     }, [priceLevel, isClosed])
     /*     useEffect(() => {
             let filtered = restaurants.filter(rest => rest.is_closed === isClosed)
