@@ -29,6 +29,18 @@ export const actions = {
             isClosed: isClosed
         } as const
     },
+    isOffersDeliveryAC: (isOffersDelivery: boolean) => {
+        return {
+            type: "MAIN/IS_OFFERS_DELIVERY",
+            isOffersDelivery: isOffersDelivery
+        } as const
+    },
+    isOffersPickUpAC: (isOffersPickUp: boolean) => {
+        return {
+            type: "MAIN/IS_OFFERS_PICKUP",
+            isOffersPickUp: isOffersPickUp
+        } as const
+    },
     setMapCenter: (mapCenter: { lat: number, lng: number }) => {
         return {
             type: "MAIN/MAP_CENTER",
@@ -80,6 +92,11 @@ let initialState = {
     filteredRestaurants: [] as Array<RestaurantsType>,
     priceLevel: '' as PriceLevelType | '',
     isClosed: true,
+    isOffersDelivery: false,
+    isOffersPickUp: false,
+    /*     isFiveMinutesDriving:false,
+        isTwoMinutesBiking:false,
+        isOneMinuteWalking:false, */
     mapCenter: { lat: 50, lng: 25 }
 }
 export const getRestaurantsThunk = (): ThunkType => async (dispatch: Dispatch) => {
@@ -128,6 +145,16 @@ const mainReducer = (state = initialState, action: ActionsTypes): InitialStateTy
         case "MAIN/IS_CLOSED": {
             return {
                 ...state, isClosed: action.isClosed
+            }
+        }
+        case "MAIN/IS_OFFERS_DELIVERY": {
+            return {
+                ...state, isOffersDelivery: action.isOffersDelivery
+            }
+        }
+        case "MAIN/IS_OFFERS_PICKUP": {
+            return {
+                ...state, isOffersPickUp: action.isOffersPickUp
             }
         }
         case "MAIN/MAP_CENTER": {

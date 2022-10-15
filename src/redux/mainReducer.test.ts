@@ -98,6 +98,8 @@ test('should handle MAIN/SET_FILTERED_RESTAURANTS', () => {
         filteredRestaurants: [],
         priceLevel: "",
         isClosed: false,
+        isOffersDelivery: false,
+        isOffersPickUp: false,
         mapCenter: { lat: 0, lng: 0 }
     }
     const filteredRestaurants: RestaurantsType[] = [{
@@ -166,6 +168,8 @@ test('should handle MAIN/SET_RESTAURANTS', () => {
         filteredRestaurants: [],
         priceLevel: "",
         isClosed: false,
+        isOffersDelivery: false,
+        isOffersPickUp: false,
         mapCenter: { lat: 0, lng: 0 }
     }
     const restaurants: RestaurantsType[] = [{
