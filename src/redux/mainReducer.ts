@@ -17,7 +17,7 @@ export const actions = {
             filteredRestaurants: filteredRestaurants
         } as const
     },
-    setPriceLevelAC: (priceLevel: PriceLevelType) => {
+    setPriceLevelAC: (priceLevel: PriceLevelType | '') => {
         return {
             type: "MAIN/SET_PRICE_LEVEL",
             priceLevel: priceLevel
@@ -115,6 +115,8 @@ export const searchRestaurantsThunk = (term: string, location: string): ThunkTyp
         let data = await resturantsAPI.getNewRestaurants(term, location);
         dispatch(actions.setRestaurantsAC(data))
         dispatch(actions.setFilteredRestaurantsAC([]))
+        dispatch(actions.isClosedAC(true))
+        dispatch(actions.setPriceLevelAC(''))
         dispatch(actions.setRestaurantsAC(data));
         //@ts-ignore
         let newCoordinates = Object.values(data[0].coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })

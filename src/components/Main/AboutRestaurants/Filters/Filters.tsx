@@ -9,7 +9,7 @@ import { PriceLevelType, RestaurantsType } from '../../../../types/types';
 
 const Filters: React.FC = () => {
     const priceLevel = useSelector<AppStateType, PriceLevelType | ''>(state => state.main.priceLevel)
-    const isClosed = useSelector<AppStateType, boolean>(state => state.main.isClosed)
+    const isClosed = useSelector<AppStateType, boolean | null>(state => state.main.isClosed)
     const isOffersPickUp = useSelector<AppStateType, boolean>(state => state.main.isOffersPickUp)
     const isOffersDelivery = useSelector<AppStateType, boolean>(state => state.main.isOffersDelivery)
     const restaurants = useSelector<AppStateType, Array<RestaurantsType>>(state => state.main.restaurants)
@@ -40,14 +40,18 @@ const Filters: React.FC = () => {
     }
     useEffect(() => {
         if (filteredRestaurants.length !== 0) {
-            let newRestaurants = restaurants.filter(function (rest) { return (rest.price === priceLevel) && (rest.is_closed === isClosed) && (rest.transactions.includes(isDelivery)) && (rest.is_closed === isOffersDelivery) })
-            dispatch(actions.setFilteredRestaurantsAC(newRestaurants))
-            if (newRestaurants.length > 0) {
-                //@ts-ignore
-                dispatch(actions.setMapCenter(Object.values(newRestaurants[0].coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })))
+            //let newRestaurants = restaurants.filter(function (rest) { return (rest.price === priceLevel) && (rest.is_closed === isClosed) && (rest.transactions.includes(isDelivery)) && (rest.is_closed === isOffersDelivery) })
+            if (isClosed) {
+                let newRestaurants = restaurants.filter(rest => rest.price === priceLevel)
+                dispatch(actions.setFilteredRestaurantsAC(newRestaurants))
+                if (newRestaurants.length > 0) {
+                    //@ts-ignore
+                    dispatch(actions.setMapCenter(Object.values(newRestaurants[0].coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })))
+                }
             }
             if (!isClosed) {
-                let someRestaurants = newRestaurants.filter(rest => rest.is_closed === isClosed)
+                let someRestaurants = restaurants.filter(rest => rest.is_closed === isClosed)
+                someRestaurants = someRestaurants.filter(rest => rest.price === priceLevel)
                 dispatch(actions.setFilteredRestaurantsAC(someRestaurants))
                 if (someRestaurants.length > 0) {
                     //@ts-ignore
@@ -55,18 +59,22 @@ const Filters: React.FC = () => {
                 }
             }
         }
-        let filtered = restaurants.filter(rest => rest.price === priceLevel)
-        dispatch(actions.setFilteredRestaurantsAC(filtered))
-        if (filtered.length > 0) {
-            //@ts-ignore
-            dispatch(actions.setMapCenter(Object.values(filtered[0].coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })))
+        else {
+            if (isClosed) {
+                let filtered = restaurants.filter(rest => rest.price === priceLevel)
+                dispatch(actions.setFilteredRestaurantsAC(filtered))
+                if (filtered.length > 0) {
+                    //@ts-ignore
+                    dispatch(actions.setMapCenter(Object.values(filtered[0].coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })))
+                }
+            }
+            if (!isClosed) {
+                let filtered = restaurants.filter(rest => rest.price === priceLevel)
+                filtered = filtered.filter(rest => rest.is_closed === isClosed)
+                dispatch(actions.setFilteredRestaurantsAC(filtered))
+            }
         }
     }, [priceLevel, isClosed, isOffersPickUp, isOffersDelivery])
-    /*     useEffect(() => {
-            let filtered = restaurants.filter(rest => rest.is_closed === isClosed)
-            dispatch(actions.setFilteredRestaurantsAC(filtered))
-        }, [isClosed]) */
-
     return (
         <div className={s.main}>
             <h3 className={s.heading}>Filters</h3>
