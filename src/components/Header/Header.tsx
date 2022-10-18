@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import s from './Header.module.css'
 import logo from '../../../src/img/Logo.png'
 import searchPhoto from '../../..//src/img/search.png'
-import { useDispatch } from 'react-redux';
-import { searchRestaurantsThunk } from './../../redux/mainReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions, searchRestaurantsThunk } from './../../redux/mainReducer';
+import { AppStateType } from '../../redux/store';
 
 const Header: React.FC = () => {
     const [location, setLocation] = useState<string>('NewYork')
@@ -12,7 +13,8 @@ const Header: React.FC = () => {
     const search = (e: React.MouseEvent<HTMLElement>) => {
         e.preventDefault()
         //@ts-ignore
-        dispatch(searchRestaurantsThunk(restaurant, location))
+        dispatch(actions.setLocationAC(location))
+        dispatch(actions.setTermAC(restaurant))
     }
     return (
         <div className={s.main}>

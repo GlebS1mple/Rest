@@ -1,6 +1,6 @@
 import { Dispatch } from "redux"
 import { resturantsAPI } from "../api/api"
-import { RestaurantsType, PriceLevelType } from "../types/types"
+import { RestaurantsType, CategoryType, PriceLevelType } from "../types/types"
 import { BaseThunkType, InferActionsType } from "./store"
 
 export type ActionsTypes = InferActionsType<typeof actions>
@@ -17,10 +17,22 @@ export const actions = {
             filteredRestaurants: filteredRestaurants
         } as const
     },
-    setPriceLevelAC: (priceLevel: PriceLevelType | '') => {
+    setPriceLevelAC: (priceLevel: string) => {
         return {
             type: "MAIN/SET_PRICE_LEVEL",
             priceLevel: priceLevel
+        } as const
+    },
+    setLocationAC: (location: string) => {
+        return {
+            type: "MAIN/SET_LOCATION",
+            location: location
+        } as const
+    },
+    setTermAC: (term: string) => {
+        return {
+            type: "MAIN/SET_TERM",
+            term: term
         } as const
     },
     isClosedAC: (isClosed: boolean) => {
@@ -90,8 +102,12 @@ let initialState = {
         }, */
     ] as Array<RestaurantsType>,
     filteredRestaurants: [] as Array<RestaurantsType>,
-    priceLevel: '' as PriceLevelType | '',
-    isClosed: true,
+    priceLevel: '1,2,3,4',
+    term: 'restaurants' as string,
+    location: 'NY' as string,
+    categories: null as null | Array<CategoryType>,
+    openNow: false,
+    isClosed: false,
     isOffersDelivery: false,
     isOffersPickUp: false,
     /*     isFiveMinutesDriving:false,
@@ -110,13 +126,14 @@ export const getRestaurantsThunk = (): ThunkType => async (dispatch: Dispatch) =
     }
     catch (error: any) { alert(error.message) }
 }
-export const searchRestaurantsThunk = (term: string, location: string): ThunkType => async (dispatch: Dispatch) => {
+export const searchRestaurantsThunk = (term: string, location: string, price: PriceLevelType, open_now: boolean): ThunkType => async (dispatch: Dispatch) => {
     try {
-        let data = await resturantsAPI.getNewRestaurants(term, location);
+        let data = await resturantsAPI.getNewRestaurants(term, location, price, open_now);
+        console.log(data)
         dispatch(actions.setRestaurantsAC(data))
         dispatch(actions.setFilteredRestaurantsAC([]))
         dispatch(actions.isClosedAC(true))
-        dispatch(actions.setPriceLevelAC(''))
+        //dispatch(actions.setPriceLevelAC('1,2,3,4'))
         dispatch(actions.setRestaurantsAC(data));
         //@ts-ignore
         let newCoordinates = Object.values(data[0].coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })
@@ -144,9 +161,22 @@ const mainReducer = (state = initialState, action: ActionsTypes): InitialStateTy
                 priceLevel: action.priceLevel
             }
         }
+        case "MAIN/SET_LOCATION": {
+            return {
+                ...state,
+                location: action.location
+            }
+        }
+        case "MAIN/SET_TERM": {
+            return {
+                ...state,
+                term: action.term
+            }
+        }
         case "MAIN/IS_CLOSED": {
             return {
-                ...state, isClosed: action.isClosed
+                ...state,
+                isClosed: action.isClosed
             }
         }
         case "MAIN/IS_OFFERS_DELIVERY": {

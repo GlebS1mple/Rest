@@ -17,10 +17,17 @@ app.use(cors({
 app.get('/restaurants', (req, res) => {
     const term = req.query.term
     const location = req.query.location
+    const price = req.query.price
+    const open_now = req.query.open_now
     const options = {
         method: 'GET',
         url: process.env.API_BASE_URL + '/search?',
-        params: { term: term, location: location },
+        params: {
+            term: term,
+            location: location,
+            price: price,
+            open_now: open_now
+        },
         headers: {
             Authorization: process.env.API_KEY,
             "Access-Control-Allow-Origin": "*",

@@ -3,16 +3,26 @@ import Map from './Map/Map';
 import s from '../Main/Main.module.css'
 import AboutRestaurants from './AboutRestaurants/AboutRestaurants';
 import { useEffect } from 'react';
-import { getRestaurantsThunk } from '../../redux/mainReducer';
-import { useDispatch } from 'react-redux';
+import { getRestaurantsThunk, searchRestaurantsThunk } from '../../redux/mainReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppStateType } from '../../redux/store';
+import { PriceLevelType, RestaurantsType } from '../../types/types';
 
 
 const Main: React.FC = () => {
+    const priceLevel = useSelector<AppStateType, string>(state => state.main.priceLevel)
+    const isClosed = useSelector<AppStateType, boolean | null>(state => state.main.isClosed)
+    const location = useSelector<AppStateType, string>(state => state.main.location)
+    const term = useSelector<AppStateType, string>(state => state.main.term)
     let dispatch = useDispatch()
     useEffect(() => {
         //@ts-ignore
         dispatch(getRestaurantsThunk())
     }, [])
+    useEffect(() => {
+        //@ts-ignore
+        dispatch((searchRestaurantsThunk(term, location, priceLevel, isClosed)))
+    }, [term, location, priceLevel, isClosed])
     return (
         <div className={s.main}>
             <AboutRestaurants />

@@ -51,7 +51,7 @@ test('should handle getRestaurantsThunk', async () => {
     expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setRestaurantsAC(data))
 })
 test('should handle searchRestaurantsThunk', async () => {
-    const thunk = searchRestaurantsThunk('restaurants', 'NY')
+    const thunk = searchRestaurantsThunk('restaurants', 'NY', '1,2,3,4', false)
     const dispatchMock = jest.fn()
     const getStateMock = jest.fn()
     let data = await thunk(dispatchMock, getStateMock, {})
@@ -85,21 +85,32 @@ test('should handle MAIN/MAP_CENTER', () => {
     });
 });
 test('should handle MAIN/SET_PRICE_LEVEL', () => {
-    const priceLevelAction: PriceLevelType = '$$'
+    const priceLevelAction: PriceLevelType = '1,2,3,4'
     //@ts-ignore
     expect(mainReducer({}, actions.setPriceLevelAC(priceLevelAction))).toEqual({
-        priceLevel: '$$',
+        priceLevel: '1,2,3,4',
 
+    });
+});
+test('should handle MAIN/SET_LOCATION', () => {
+    const location: string = 'NY'
+    //@ts-ignore
+    expect(mainReducer({}, actions.setLocationAC(location))).toEqual({
+        location: 'NY',
     });
 });
 test('should handle MAIN/SET_FILTERED_RESTAURANTS', () => {
     const previousState: InitialStateType = {
         restaurants: [],
         filteredRestaurants: [],
-        priceLevel: "",
+        priceLevel: "1,2,3,4",
         isClosed: false,
         isOffersDelivery: false,
         isOffersPickUp: false,
+        term: 'restaurants',
+        location: 'NY',
+        categories: null,
+        openNow: true,
         mapCenter: { lat: 0, lng: 0 }
     }
     const filteredRestaurants: RestaurantsType[] = [{
@@ -166,10 +177,14 @@ test('should handle MAIN/SET_RESTAURANTS', () => {
     const previousState: InitialStateType = {
         restaurants: [],
         filteredRestaurants: [],
-        priceLevel: "",
+        priceLevel: "1,2,3,4",
         isClosed: false,
         isOffersDelivery: false,
         isOffersPickUp: false,
+        term: 'restaurants',
+        location: 'NY',
+        categories: null,
+        openNow: true,
         mapCenter: { lat: 0, lng: 0 }
     }
     const restaurants: RestaurantsType[] = [{

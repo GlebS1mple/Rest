@@ -8,18 +8,20 @@ export const resturantsAPI = {
             url: 'http://localhost:6069/restaurants',
             params: {
                 term: 'restaurants',
-                location: 'NewYork'
+                location: 'NewYork',
             }
         }
         return axios.request<Array<RestaurantsType>>(options).then(response => { return response.data });
     },
-    getNewRestaurants(term: string, location: string) {
+    getNewRestaurants(term: string, location: string, price: string, open_now: boolean) {
         const options = {
             method: 'GET',
             url: 'http://localhost:6069/restaurants',
             params: {
                 term: term,
-                location: location
+                location: location,
+                price: price,
+                open_now: open_now
             }
         }
         return axios.request<Array<RestaurantsType>>(options).then(response => { return response.data });
