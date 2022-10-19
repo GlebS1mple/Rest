@@ -1,6 +1,6 @@
 import { Dispatch } from "redux"
 import { resturantsAPI } from "../api/api"
-import { RestaurantsType, CategoryType, PriceLevelType } from "../types/types"
+import { RestaurantsType, CategoryType, PriceLevelType, SortType } from "../types/types"
 import { BaseThunkType, InferActionsType } from "./store"
 
 export type ActionsTypes = InferActionsType<typeof actions>
@@ -33,6 +33,12 @@ export const actions = {
         return {
             type: "MAIN/SET_TERM",
             term: term
+        } as const
+    },
+    setSortByAC: (sortBy: SortType) => {
+        return {
+            type: "MAIN/SET_SORT_BY",
+            sortBy: sortBy
         } as const
     },
     isClosedAC: (isClosed: boolean) => {
@@ -110,6 +116,7 @@ let initialState = {
     isClosed: false,
     isOffersDelivery: false,
     isOffersPickUp: false,
+    sortBy: 'best_match' as SortType,
     /*     isFiveMinutesDriving:false,
         isTwoMinutesBiking:false,
         isOneMinuteWalking:false, */
@@ -126,9 +133,9 @@ export const getRestaurantsThunk = (): ThunkType => async (dispatch: Dispatch) =
     }
     catch (error: any) { alert(error.message) }
 }
-export const searchRestaurantsThunk = (term: string, location: string, price: PriceLevelType, open_now: boolean): ThunkType => async (dispatch: Dispatch) => {
+export const searchRestaurantsThunk = (term: string, location: string, price: string, open_now: boolean, sortBy: SortType): ThunkType => async (dispatch: Dispatch) => {
     try {
-        let data = await resturantsAPI.getNewRestaurants(term, location, price, open_now);
+        let data = await resturantsAPI.getNewRestaurants(term, location, price, open_now, sortBy);
         console.log(data)
         dispatch(actions.setRestaurantsAC(data))
         dispatch(actions.setFilteredRestaurantsAC([]))
@@ -171,6 +178,12 @@ const mainReducer = (state = initialState, action: ActionsTypes): InitialStateTy
             return {
                 ...state,
                 term: action.term
+            }
+        }
+        case "MAIN/SET_SORT_BY": {
+            return {
+                ...state,
+                sortBy: action.sortBy
             }
         }
         case "MAIN/IS_CLOSED": {

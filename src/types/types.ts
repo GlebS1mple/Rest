@@ -35,3 +35,4 @@ export type LocationType = {
     zip_code: string
 }
 export type PriceLevelType = '1' | '2' | '3' | '4' | '1,2,3,4'
+export type SortType = 'best_match' | 'rating' | 'review_count'

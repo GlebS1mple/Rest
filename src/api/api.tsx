@@ -1,5 +1,5 @@
 import axios from "axios";
-import { RestaurantsType } from "../types/types";
+import { RestaurantsType, SortType } from "../types/types";
 
 export const resturantsAPI = {
     getRestaurants() {
@@ -13,7 +13,7 @@ export const resturantsAPI = {
         }
         return axios.request<Array<RestaurantsType>>(options).then(response => { return response.data });
     },
-    getNewRestaurants(term: string, location: string, price: string, open_now: boolean) {
+    getNewRestaurants(term: string, location: string, price: string, open_now: boolean, sort_by: SortType) {
         const options = {
             method: 'GET',
             url: 'http://localhost:6069/restaurants',
@@ -21,7 +21,8 @@ export const resturantsAPI = {
                 term: term,
                 location: location,
                 price: price,
-                open_now: open_now
+                open_now: open_now,
+                sort_by: sort_by
             }
         }
         return axios.request<Array<RestaurantsType>>(options).then(response => { return response.data });

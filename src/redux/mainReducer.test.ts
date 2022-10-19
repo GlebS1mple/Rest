@@ -4,8 +4,15 @@ import mainReducer, { actions, getRestaurantsThunk, InitialStateType, searchRest
 
 let state = {
     restaurants: [],
+    isOffersDelivery: false,
+    isOffersPickUp: false,
+    location: 'NY',
+    categories: null,
+    openNow: false,
+    term: 'restaurants',
+    sortBy: 'best_match',
     filteredRestaurants: [],
-    priceLevel: '',
+    priceLevel: '1,2,3,4',
     isClosed: true,
     mapCenter: { lat: 50, lng: 25 }
 }
@@ -51,14 +58,16 @@ test('should handle getRestaurantsThunk', async () => {
     expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setRestaurantsAC(data))
 })
 test('should handle searchRestaurantsThunk', async () => {
-    const thunk = searchRestaurantsThunk('restaurants', 'NY', '1,2,3,4', false)
+    const thunk = searchRestaurantsThunk('restaurants', 'NY', '1,2,3,4', false, 'best_match')
     const dispatchMock = jest.fn()
     const getStateMock = jest.fn()
     let data = await thunk(dispatchMock, getStateMock, {})
-    expect(dispatchMock).toBeCalledTimes(3)
+    expect(dispatchMock).toBeCalledTimes(4)
     //@ts-ignore
     expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setRestaurantsAC(data))
     expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.setFilteredRestaurantsAC([]))
+    expect(dispatchMock).toHaveBeenNthCalledWith(3, actions.isClosedAC(true))
+    expect(dispatchMock).toHaveBeenNthCalledWith(4, actions.setMapCenter({ lat: 50, lng: 25 }))
 })
 test('should return the initial state', () => {
     expect(mainReducer(undefined, { type: 'MAIN/IS_CLOSED', isClosed: true })).toEqual(state)
@@ -111,7 +120,8 @@ test('should handle MAIN/SET_FILTERED_RESTAURANTS', () => {
         location: 'NY',
         categories: null,
         openNow: true,
-        mapCenter: { lat: 0, lng: 0 }
+        mapCenter: { lat: 0, lng: 0 },
+        sortBy: 'best_match'
     }
     const filteredRestaurants: RestaurantsType[] = [{
         alias: 'Starbacks',
@@ -168,9 +178,16 @@ test('should handle MAIN/SET_FILTERED_RESTAURANTS', () => {
             transactions: [''],
             url: '',
         }], restaurants: [],
-        priceLevel: "",
+        isOffersDelivery: false,
+        isOffersPickUp: false,
+        location: 'NY',
+        categories: null,
+        openNow: true,
+        term: 'restaurants',
+        priceLevel: "1,2,3,4",
         isClosed: false,
-        mapCenter: { lat: 0, lng: 0 }
+        mapCenter: { lat: 0, lng: 0 },
+        sortBy: 'best_match',
     });
 });
 test('should handle MAIN/SET_RESTAURANTS', () => {
@@ -185,7 +202,8 @@ test('should handle MAIN/SET_RESTAURANTS', () => {
         location: 'NY',
         categories: null,
         openNow: true,
-        mapCenter: { lat: 0, lng: 0 }
+        mapCenter: { lat: 0, lng: 0 },
+        sortBy: 'best_match',
     }
     const restaurants: RestaurantsType[] = [{
         alias: 'Starbacks',
@@ -243,8 +261,15 @@ test('should handle MAIN/SET_RESTAURANTS', () => {
             url: '',
         }],
         filteredRestaurants: [],
-        priceLevel: "",
+        priceLevel: "1,2,3,4",
         isClosed: false,
+        isOffersDelivery: false,
+        isOffersPickUp: false,
+        term: 'restaurants',
+        location: 'NY',
+        categories: null,
+        openNow: true,
+        sortBy: 'best_match',
         mapCenter: { lat: 0, lng: 0 }
     });
 });

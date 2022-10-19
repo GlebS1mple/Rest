@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { getRestaurantsThunk, searchRestaurantsThunk } from '../../redux/mainReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStateType } from '../../redux/store';
-import { PriceLevelType, RestaurantsType } from '../../types/types';
+import { PriceLevelType, RestaurantsType, SortType } from '../../types/types';
 
 
 const Main: React.FC = () => {
@@ -14,6 +14,7 @@ const Main: React.FC = () => {
     const isClosed = useSelector<AppStateType, boolean | null>(state => state.main.isClosed)
     const location = useSelector<AppStateType, string>(state => state.main.location)
     const term = useSelector<AppStateType, string>(state => state.main.term)
+    const sortBy = useSelector<AppStateType, SortType>(state => state.main.sortBy)
     let dispatch = useDispatch()
     useEffect(() => {
         //@ts-ignore
@@ -21,8 +22,8 @@ const Main: React.FC = () => {
     }, [])
     useEffect(() => {
         //@ts-ignore
-        dispatch((searchRestaurantsThunk(term, location, priceLevel, isClosed)))
-    }, [term, location, priceLevel, isClosed])
+        dispatch((searchRestaurantsThunk(term, location, priceLevel, isClosed, sortBy)))
+    }, [term, location, priceLevel, isClosed, sortBy])
     return (
         <div className={s.main}>
             <AboutRestaurants />

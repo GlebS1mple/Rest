@@ -65,8 +65,6 @@ test('should render restaurants ', () => {
 });
 test('should button ', () => {
     render(<Filters />);
-    console.log(screen.queryByText('Filters'))
-
     /*     userEvent.click(btn);
         expect(store.dispatch).toHaveBeenCalledTimes(1);
         expect(store.dispatch).toHaveBeenCalledWith(
