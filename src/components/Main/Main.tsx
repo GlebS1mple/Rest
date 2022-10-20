@@ -3,10 +3,10 @@ import Map from './Map/Map';
 import s from '../Main/Main.module.css'
 import AboutRestaurants from './AboutRestaurants/AboutRestaurants';
 import { useEffect } from 'react';
-import { getRestaurantsThunk, searchRestaurantsThunk } from '../../redux/mainReducer';
+import { actions, getRestaurantsThunk, searchRestaurantsThunk } from '../../redux/mainReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStateType } from '../../redux/store';
-import { PriceLevelType, RestaurantsType, SortType } from '../../types/types';
+import { SortType } from '../../types/types';
 
 
 const Main: React.FC = () => {

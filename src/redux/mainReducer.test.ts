@@ -14,6 +14,7 @@ let state = {
     filteredRestaurants: [],
     priceLevel: '1,2,3,4',
     isClosed: true,
+    isPopUpActive: false,
     mapCenter: { lat: 50, lng: 25 }
 }
 jest.mock("./../api/api")
@@ -121,6 +122,7 @@ test('should handle MAIN/SET_FILTERED_RESTAURANTS', () => {
         categories: null,
         openNow: true,
         mapCenter: { lat: 0, lng: 0 },
+        isPopUpActive: false,
         sortBy: 'best_match'
     }
     const filteredRestaurants: RestaurantsType[] = [{
@@ -187,6 +189,7 @@ test('should handle MAIN/SET_FILTERED_RESTAURANTS', () => {
         priceLevel: "1,2,3,4",
         isClosed: false,
         mapCenter: { lat: 0, lng: 0 },
+        isPopUpActive: false,
         sortBy: 'best_match',
     });
 });
@@ -203,6 +206,7 @@ test('should handle MAIN/SET_RESTAURANTS', () => {
         categories: null,
         openNow: true,
         mapCenter: { lat: 0, lng: 0 },
+        isPopUpActive: false,
         sortBy: 'best_match',
     }
     const restaurants: RestaurantsType[] = [{
@@ -270,6 +274,7 @@ test('should handle MAIN/SET_RESTAURANTS', () => {
         categories: null,
         openNow: true,
         sortBy: 'best_match',
+        isPopUpActive: false,
         mapCenter: { lat: 0, lng: 0 }
     });
 });
