@@ -7,6 +7,8 @@ p{
     display: flex;
     font-family: 'Montserrat';
     font-size: 15px;
+    text-decoration: none;
+    color: black;
 }
 .main:hover{
     cursor: pointer;

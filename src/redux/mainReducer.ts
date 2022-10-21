@@ -140,7 +140,6 @@ export const getRestaurantsThunk = (): ThunkType => async (dispatch: Dispatch) =
 export const searchRestaurantsThunk = (term: string, location: string, price: string, open_now: boolean, sortBy: SortType): ThunkType => async (dispatch: Dispatch) => {
     try {
         let data = await resturantsAPI.getNewRestaurants(term, location, price, open_now, sortBy);
-        console.log(data)
         dispatch(actions.setRestaurantsAC(data))
         dispatch(actions.setFilteredRestaurantsAC([]))
         dispatch(actions.isClosedAC(true))

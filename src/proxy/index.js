@@ -39,6 +39,20 @@ app.get('/restaurants', (req, res) => {
     }
     return axios.request(options).then(response => { res.json(response.data.businesses) }).catch((error) => { console.log(error) });
 })
+app.get('/restaurant', (req, res) => {
+    const id = req.query.id
+    const options = {
+        method: 'GET',
+        url: process.env.API_BASE_URL + `/${id}`,
+        headers: {
+            Authorization: process.env.API_KEY,
+            "Access-Control-Allow-Origin": "*",
+            'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+            'Access-Control-Allow-Headers': '*'
+        }
+    }
+    return axios.request(options).then(response => { res.json(response.data) }).catch((error) => { console.log(error) });
+})
 /* app.get('/todos', (req, res) => {
     const term = req.query.term
     const location = req.query.location

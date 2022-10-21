@@ -1,10 +1,12 @@
 import { applyMiddleware, compose, combineReducers, createStore, Action } from "redux";
 import mainReducer from "./mainReducer";
 import thunkMiddleware, { ThunkAction } from "redux-thunk";
+import restaurantReducer from "./restaurantReducer";
 
 
 let reducers = combineReducers({
     main: mainReducer,
+    restaurant: restaurantReducer
 });
 
 type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never

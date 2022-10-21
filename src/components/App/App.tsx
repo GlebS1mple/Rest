@@ -5,14 +5,24 @@ import Main from '../Main/Main';
 import { Provider } from 'react-redux';
 import store from '../../redux/store';
 import MainPage from '../MainPage/MainPage';
+import { BrowserRouter } from 'react-router-dom';
+import { Routes } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import RestaurantPage from '../RestaurantPage/RestaurantPage';
 
 const App: React.FC = () => {
   return (
-    <Provider store={store}>
-      <div className={s.App}>
-        <MainPage />
-      </div>
-    </Provider>
+    <BrowserRouter>
+      <Provider store={store}>
+        <div className={s.App}>
+          <Routes>
+            <Route path='/' element={<MainPage />} />
+            <Route path='/restaurant' element={<RestaurantPage />} />
+            <Route path='*' element={<div>404 NOT FOUND</div>} />
+          </Routes>
+        </div>
+      </Provider>
+    </BrowserRouter>
   );
 }
 

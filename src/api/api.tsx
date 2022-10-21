@@ -1,5 +1,5 @@
 import axios from "axios";
-import { RestaurantsType, SortType } from "../types/types";
+import { RestaurantsType, RestaurantType, SortType } from "../types/types";
 
 export const resturantsAPI = {
     getRestaurants() {
@@ -27,7 +27,16 @@ export const resturantsAPI = {
         }
         return axios.request<Array<RestaurantsType>>(options).then(response => { return response.data });
     },
-
+    getRestaurant(id: string) {
+        const options = {
+            method: 'GET',
+            url: 'http://localhost:6069/restaurant',
+            params: {
+                id: id,
+            }
+        }
+        return axios.request<RestaurantType>(options).then(response => { return response.data });
+    },
     /*     getTodos() {
             const options = {
                 method: 'GET',

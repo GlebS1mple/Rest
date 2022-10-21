@@ -1,18 +1,27 @@
 import React from 'react';
 import s from '../Restaurant/Restaurant.module.css'
-import { RestaurantsType } from '../../../../../types/types';
+import { RestaurantsType } from '../../../../../types/types'
 import phone from '../../../../../../src/img/phone.png'
 import food from '../../../../../../src/img/food.png'
-import Feature from './Feature/Feature';
+import Feature from './Feature/Feature'
 import star from '../../../../../img/star.png'
+import { Link } from "react-router-dom"
+import { useDispatch } from 'react-redux';
+import { actions } from '../../../../../redux/restaurantReducer';
+import { getRestaurantThunk } from './../../../../../redux/restaurantReducer';
 
 type PropsType = {
     rest: RestaurantsType
 }
 
 const Restaurant: React.FC<PropsType> = ({ rest }) => {
+    let dispatch = useDispatch()
+    const clickHandler = (id: string) => {
+        //@ts-ignore
+        dispatch(getRestaurantThunk(id))
+    }
     return (
-        <div className={s.main}>
+        <Link onClick={() => { clickHandler(rest.id) }} to='/restaurant' className={s.main}>
             <img src={rest.image_url} alt="Photo of restaurant" className={s.img} />
             <div className={s.about}>
                 <h2 className={s.name}>{rest.name}</h2>
@@ -45,7 +54,7 @@ const Restaurant: React.FC<PropsType> = ({ rest }) => {
                     <a href={rest.url} className={s.link}>Watch on yelp</a>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 
