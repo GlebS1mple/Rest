@@ -19,6 +19,7 @@ app.get('/restaurants', (req, res) => {
     const location = req.query.location
     const price = req.query.price
     const open_now = req.query.open_now
+    const sort_by = req.query.sort_by
     const options = {
         method: 'GET',
         url: process.env.API_BASE_URL + '/search?',
@@ -26,7 +27,8 @@ app.get('/restaurants', (req, res) => {
             term: term,
             location: location,
             price: price,
-            open_now: open_now
+            open_now: open_now,
+            sort_by: sort_by
         },
         headers: {
             Authorization: process.env.API_KEY,

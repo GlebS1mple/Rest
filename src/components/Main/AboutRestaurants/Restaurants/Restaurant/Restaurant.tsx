@@ -4,6 +4,7 @@ import { RestaurantsType } from '../../../../../types/types';
 import phone from '../../../../../../src/img/phone.png'
 import food from '../../../../../../src/img/food.png'
 import Feature from './Feature/Feature';
+import star from '../../../../../img/star.png'
 
 type PropsType = {
     rest: RestaurantsType
@@ -16,18 +17,18 @@ const Restaurant: React.FC<PropsType> = ({ rest }) => {
             <div className={s.about}>
                 <h2 className={s.name}>{rest.name}</h2>
                 <div className={s.rating}>
-                    <div className={s.stars}></div>
+                    <div className={s.stars}>
+                        {rest.rating}
+                        <img src={star} alt="rating" className={s.star} />
+                    </div>
                     <span className={s.reviewsNumber}>{rest.review_count}</span>
                 </div>
-                <div className={s.info}>
-                    <div className={s.address}>{rest.location.display_address.map(el => `${el}, `)}</div>
-                    <p className={s.price}>{rest.price}</p>
-                </div>
+                <div className={s.info}>{rest.location.display_address.map(el => `${el}, `)}{rest.price}</div>
                 <div className={s.time}>
                     <span className={s.isOpen}>{rest.is_closed ? 'Closed' : 'Open'}</span>
                 </div>
                 <div className={s.food}>
-                    <img src={food} alt="Review" className={s.foodIcon} />
+                    <img src={food} alt="What kind of food" className={s.foodIcon} />
                     <p className={s.foodText}>
                         {rest.categories.map(el => `${el.title}, `)}
                         <button className={s.more}>more</button>

@@ -24,16 +24,34 @@
     text-align: center;
     cursor: pointer;
 }
+.price__active,
+.price.rightPrice__active,
+.price.leftPrice__active{
+    outline: none;
+    padding: 7px 14px 7px 14px;
+    font-family: 'Montserrat';
+    font-weight: normal;
+    font-size: 13px;
+    text-align: center;
+    cursor: pointer;
+    border-color: #ee86a2;
+    background-color: #ffcedb;
+}
+.price__active{
+    border: .2px solid #ee86a2;
+}
 .price:hover{
-    background-color: rgb(238, 238, 238);
+    background-color: #ffcedb;
     transition: all .2s;
 }
-.price.leftPrice{
+.price.leftPrice,
+.price.leftPrice__active{
     padding-left: 15px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
 }
-.price.rightPrice{
+.price.rightPrice,
+.price.rightPrice__active{
     padding-right: 15px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
@@ -49,6 +67,6 @@
 }
 .checkbox{
     margin-right: 5px;
-width: 15px;
-height: 15px;
+    width: 15px;
+    height: 15px;
 }
