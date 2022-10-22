@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { AppStateType } from '../../../../redux/store';
 import { RestaurantType } from '../../../../types/types';
-import RestaurantPhoto from './RestaurantPhoto/RestaurantPhoto';
 import s from '../RestaurantGalerey/RestaurantGalerey.module.css'
 import PhotoSwiper from './PhotoSwiper/PhotoSwiper';
 import star from '../../../../img/star.png'
