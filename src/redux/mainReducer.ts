@@ -116,7 +116,7 @@ let initialState = {
     filteredRestaurants: [] as Array<RestaurantsType>,
     priceLevel: '1,2,3,4',
     term: 'restaurants' as string,
-    location: 'NY' as string,
+    location: 'New York' as string,
     categories: null as null | Array<CategoryType>,
     openNow: false,
     isClosed: false,

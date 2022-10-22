@@ -22,7 +22,6 @@ let initialState = {
 export const getRestaurantThunk = (id: string): ThunkType => async (dispatch: Dispatch) => {
     try {
         let data = await resturantsAPI.getRestaurant(id);
-        console.log(data)
         dispatch(actions.setRestaurantAC(data))
     }
     catch (error: any) { alert(error.message) }

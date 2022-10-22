@@ -1,0 +1,38 @@
+.swiper{
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+}
+.photo__swiper{
+    position: relative;
+}
+.photo__swiper:first-child{
+    filter: brightness(.6);
+}
+.next,
+.prev{
+    position: absolute;
+    z-index: 1000;
+    width: 12px;
+    height: 12px;
+    padding: 10px;
+    border: 1px solid rgb(250, 210, 210);
+    background-color: rgb(250, 210, 210);
+    border-radius:50% ;
+    cursor: pointer;
+}
+.prev{
+    left: 20px;
+    top: 50%;
+    transform: translate(50%);
+    transform: rotate(180deg);
+}
+.next:hover,
+.prev:hover{
+    background-color: rgb(245, 187, 187);
+}
+.next{
+    right: 40px;
+    top: 50%;
+    transform: translate(50%);
+}

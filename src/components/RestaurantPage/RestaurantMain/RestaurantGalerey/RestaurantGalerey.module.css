@@ -2,3 +2,67 @@
     display: flex;
     justify-content: start;
 }
+.mainInfo{
+    position: absolute;
+    bottom:30%;
+    left: 100px;
+    z-index: 1000;
+    color: white;
+    text-align: left;
+    font-family: 'Montseratt';
+}
+.name{
+    font-weight: bold;
+    font-size: 3rem;
+    margin: 0px 0px 0px 0px;
+}
+.rating{
+    display: flex;
+    font-weight: normal;
+    font-size: 2rem;
+}
+.stars{
+    display: flex;
+    align-items: center;
+    font-weight: normal;
+    font-size: 2rem;
+}
+.reviews{
+    margin: 0px 0px 0px 0px;
+    font-weight: normal;
+    font-size: 2rem;
+}
+.star{
+    object-fit: cover;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.block{
+    display: flex;
+}
+.closed{
+    color: rgb(179, 54, 54);
+    margin-right: 10px;
+    font-weight: normal;
+    font-size: 2rem;
+}
+.opened{
+    color: rgb(57, 185, 57);
+    margin-right: 10px;
+    font-weight: normal;
+    font-size: 2rem;
+}
+.closed::after,
+.opened::after{
+    content: '';
+    width: 2px;
+    border-radius: 50%;
+    background-color: white;
+}
+.categories{
+    font-weight: normal;
+    font-size: 2rem;
+    margin: 0px 0px 0px 0px;
+}
