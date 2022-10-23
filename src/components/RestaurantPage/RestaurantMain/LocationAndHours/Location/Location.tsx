@@ -19,6 +19,7 @@ function MyMapComponent({
     zoom: number;
     children: any
 }) {
+    const trueCenter = useSelector<AppStateType, { lat: number, lng: number }>(state => state.restaurant.center)
     const ref = useRef();
     const [map, setMap] = React.useState<google.maps.Map>();
     useEffect(() => {
@@ -27,7 +28,7 @@ function MyMapComponent({
             center,
             zoom,
         }))
-    }, [ref]);
+    }, [ref, trueCenter]);
     return (
         <>
             {//@ts-ignore
@@ -50,8 +51,6 @@ const Marker: React.FC<google.maps.MarkerOptions> = (options) => {
                 position: { lat: 40.736218, lng: -73.99597 },
             }));
         }
-
-        // remove marker from map on unmount
         return () => {
             if (marker) {
                 marker.setMap(null);
@@ -69,27 +68,31 @@ const Marker: React.FC<google.maps.MarkerOptions> = (options) => {
 };
 function Location() {
     const restaurant = useSelector<AppStateType, RestaurantType>(state => state.restaurant.restaurant)
-    const coordinates = useSelector<AppStateType, CoordinateType>(state => state.restaurant.restaurant.coordinates)
-    //@ts-ignore
-    const center = Object.values(coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })
-
+    const center = useSelector<AppStateType, { lat: number, lng: number }>(state => state.restaurant.center)
     const zoom = 16;
-    /*     const handler = (rest: RestaurantsType) => {
-            //@ts-ignore
-            console.log(rest)
-        } */
     return (
-        //@ts-ignore
-        <Wrapper className={s.wrapper} apiKey={process.env.REACT_APP_API_GOOGLE_KEY} render={render}>
-            {/*@ts-ignore */}
-            <MyMapComponent center={center ? center : { lat: 0, lng: 0 }} zoom={zoom}>
-                {/*@ts-ignore */}
-                <Marker title={restaurant.name} position={center ? center : { lat: 0, lng: 0 }} />
-            </MyMapComponent>
-        </Wrapper>
+        <div >
+            {/*@ts-ignore*/}
+            <Wrapper className={s.wrapper} apiKey={process.env.REACT_APP_API_GOOGLE_KEY} render={render}>
+                <MyMapComponent center={center} zoom={zoom}>
+                    <Marker title={restaurant.name} position={center} />
+                </MyMapComponent>
+            </Wrapper>
+            <div className={s.locationInfo}>
+                <div className={s.adress}>
+                    {restaurant.location.address1}
+                </div>
+                <div className={s.city}>
+                    {restaurant.location.city},&nbsp;
+                    {restaurant.location.state} &nbsp;
+                    {restaurant.location.zip_code}
+                </div>
+                <div className={s.streets}>
+                    {restaurant.location.cross_streets}
+                </div>
+            </div>
+        </div>
     );
 }
-
-//onMouseEnter={() => { handler(rest) }}
 
 export default Location;

@@ -1,5 +1,23 @@
 .main{
     display: flex;
-width:300px;
-height: 10rem;
+    flex-direction: column;
+    width:300px;
+    height: 10rem;
+    margin-bottom: 20px;
+}
+.locationInfo{
+    font-family: 'Open Sans';
+    font-size: 18px;
+    font-weight: normal;
+    display: flex;
+    flex-direction: column;
+}
+.city{
+    font-weight: bold;
+}
+.adress{
+    color:cadetblue;
+}
+.streets{
+
 }

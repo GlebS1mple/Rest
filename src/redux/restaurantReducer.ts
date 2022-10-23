@@ -11,6 +11,12 @@ export const actions = {
             restaurant: restaurant
         } as const
     },
+    setCenterAC: (center: { lat: number, lng: number }) => {
+        return {
+            type: "RESTAURANT/SET_CENTER",
+            center: center
+        } as const
+    },
 }
 
 type ThunkType = BaseThunkType<ActionsTypes>
@@ -18,11 +24,15 @@ type ThunkType = BaseThunkType<ActionsTypes>
 
 let initialState = {
     restaurant: {} as RestaurantType,
+    center: { lat: 50, lng: 25 }
 }
 export const getRestaurantThunk = (id: string): ThunkType => async (dispatch: Dispatch) => {
     try {
         let data = await resturantsAPI.getRestaurant(id);
+        //@ts-ignore
+        dispatch(actions.setCenterAC(Object.values(data.coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })))
         dispatch(actions.setRestaurantAC(data))
+
     }
     catch (error: any) { alert(error.message) }
 }
@@ -33,6 +43,12 @@ const restaurantReducer = (state = initialState, action: ActionsTypes): InitialS
             return {
                 ...state,
                 restaurant: action.restaurant
+            }
+        }
+        case "RESTAURANT/SET_CENTER": {
+            return {
+                ...state,
+                center: action.center
             }
         }
         default: return state

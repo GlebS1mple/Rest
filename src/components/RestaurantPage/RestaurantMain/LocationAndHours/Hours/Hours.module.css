@@ -1,0 +1,9 @@
+.main{
+    display: flex;
+    font-family: 'Open sans';
+    font-size: 18px;
+    font-weight: bold;
+}
+.day{
+    margin-right: 30px;
+}

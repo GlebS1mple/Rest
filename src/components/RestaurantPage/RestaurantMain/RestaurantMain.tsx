@@ -10,10 +10,12 @@ const RestaurantMain = () => {
     const restaurant = useSelector<AppStateType, RestaurantType>(state => state.restaurant.restaurant)
     return (
         <div>
-            {restaurant ?
+            {restaurant.id ?
                 <>
                     <RestaurantGallery />
-                    <LocationAndHours />
+                    <div className={s.container}>
+                        <LocationAndHours />
+                    </div>
                 </>
                 : 'Loading'}
         </div>
