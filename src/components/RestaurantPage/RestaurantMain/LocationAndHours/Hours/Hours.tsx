@@ -8,9 +8,8 @@ import Hour from './Hour/Hour';
 
 const Hours: React.FC = () => {
     const restaurant = useSelector<AppStateType, RestaurantType>(state => state.restaurant.restaurant)
-    const days = restaurant.hours.map(hour => hour.open.map(open => open.day).map(day => day))
     const open = restaurant.hours.map(hour => hour.open.map(open => open))
-    console.log(open[0])
+    let monday = open[0].filter(day => day.day === 0)
     return (
         <div className={s.main}>
             <div className={s.day}>

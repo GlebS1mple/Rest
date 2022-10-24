@@ -7,7 +7,7 @@
     position: relative;
 }
 .photo__swiper:first-child{
-    filter: brightness(.6);
+    filter: brightness(.5);
 }
 .next,
 .prev{

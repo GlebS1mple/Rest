@@ -7,7 +7,7 @@
     position: absolute;
     bottom:30%;
     left: 100px;
-    z-index: 1000;
+    z-index: 900;
     color: white;
     text-align: left;
     font-family: 'Open Sans';
@@ -42,18 +42,16 @@
 }
 .block{
     display: flex;
+    font-weight: normal;
+    font-size: 2rem;
 }
 .closed{
     color: rgb(179, 54, 54);
     margin-right: 10px;
-    font-weight: normal;
-    font-size: 2rem;
 }
 .opened{
-    color: rgb(57, 185, 57);
+    color: rgba(4,197,133,1);
     margin-right: 10px;
-    font-weight: normal;
-    font-size: 2rem;
 }
 .closed::after,
 .opened::after{
