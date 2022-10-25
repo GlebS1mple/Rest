@@ -1,6 +1,6 @@
 import { Dispatch } from "redux"
 import { resturantsAPI } from "../api/api"
-import { RestaurantsType, RestaurantType, } from "../types/types"
+import { RestaurantsType, RestaurantType, ReviewType, } from "../types/types"
 import { BaseThunkType, InferActionsType } from "./store"
 
 export type ActionsTypes = InferActionsType<typeof actions>
@@ -11,6 +11,12 @@ export const actions = {
             restaurant: restaurant
         } as const
     },
+    setRestaurantReviewsAC: (reviews: Array<ReviewType>) => {
+        return {
+            type: "RESTAURANT/SET_RESTAURANT_REVIEWS",
+            restaurantReviews: reviews
+        } as const
+    },
     setCenterAC: (center: { lat: number, lng: number }) => {
         return {
             type: "RESTAURANT/SET_CENTER",
@@ -18,13 +24,15 @@ export const actions = {
         } as const
     },
 }
+// errors
 
 type ThunkType = BaseThunkType<ActionsTypes>
 
 
 let initialState = {
     restaurant: {} as RestaurantType,
-    center: { lat: 50, lng: 25 }
+    center: { lat: 50, lng: 25 },
+    restaurantReviews: [] as Array<ReviewType>
 }
 export const getRestaurantThunk = (id: string): ThunkType => async (dispatch: Dispatch) => {
     try {
@@ -32,7 +40,13 @@ export const getRestaurantThunk = (id: string): ThunkType => async (dispatch: Di
         //@ts-ignore
         dispatch(actions.setCenterAC(Object.values(data.coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })))
         dispatch(actions.setRestaurantAC(data))
-
+    }
+    catch (error: any) { alert(error.message) }
+}
+export const getRestaurantReviewsThunk = (id: string): ThunkType => async (dispatch: Dispatch) => {
+    try {
+        let data = await resturantsAPI.getRestaurantReviews(id);
+        dispatch(actions.setRestaurantReviewsAC(data))
     }
     catch (error: any) { alert(error.message) }
 }
@@ -43,6 +57,12 @@ const restaurantReducer = (state = initialState, action: ActionsTypes): InitialS
             return {
                 ...state,
                 restaurant: action.restaurant
+            }
+        }
+        case "RESTAURANT/SET_RESTAURANT_REVIEWS": {
+            return {
+                ...state,
+                restaurantReviews: action.restaurantReviews
             }
         }
         case "RESTAURANT/SET_CENTER": {

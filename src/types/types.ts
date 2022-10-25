@@ -87,5 +87,19 @@ export type SpecialHoursType = {
     end: string
     is_overNight: boolean
 }
+export type ReviewType = {
+    id: string
+    rating: number
+    user: UserType
+    text: string
+    time_created: string
+    url: string
+}
+export type UserType = {
+    id: string
+    profile_url: string
+    image_url: string
+    name: string
+}
 export type PriceLevelType = '1' | '2' | '3' | '4' | '1,2,3,4'
 export type SortType = 'best_match' | 'rating' | 'review_count'

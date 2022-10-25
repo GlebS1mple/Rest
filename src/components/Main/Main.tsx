@@ -7,6 +7,7 @@ import { actions, getRestaurantsThunk, searchRestaurantsThunk } from '../../redu
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStateType } from '../../redux/store';
 import { SortType } from '../../types/types';
+import { getRestaurantReviewsThunk } from '../../redux/restaurantReducer';
 
 
 const Main: React.FC = () => {

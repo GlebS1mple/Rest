@@ -7,7 +7,7 @@ import Feature from './Feature/Feature'
 import star from '../../../../../img/star.png'
 import { Link } from "react-router-dom"
 import { useDispatch } from 'react-redux';
-import { actions } from '../../../../../redux/restaurantReducer';
+import { actions, getRestaurantReviewsThunk } from '../../../../../redux/restaurantReducer';
 import { getRestaurantThunk } from './../../../../../redux/restaurantReducer';
 
 type PropsType = {
@@ -19,6 +19,8 @@ const Restaurant: React.FC<PropsType> = ({ rest }) => {
     const clickHandler = (id: string) => {
         //@ts-ignore
         dispatch(getRestaurantThunk(id))
+        //@ts-ignore
+        dispatch(getRestaurantReviewsThunk(id))
     }
     return (
         <Link onClick={() => { clickHandler(rest.id) }} to='/restaurant' className={s.main}>

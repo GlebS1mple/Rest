@@ -13,10 +13,10 @@ const Hours: React.FC = () => {
     return (
         <div className={s.main}>
             <div className={s.day}>
-                {open[0].map(day => <Day open={day} />)}
+                {open[0].map((day, index) => <Day key={index} open={day} />)}
             </div>
             <div className={s.hour}>
-                {open[0].map(day => <Hour open={day} />)}
+                {open[0].map((day, index) => <Hour key={index} open={day} />)}
             </div>
         </div>
     );
