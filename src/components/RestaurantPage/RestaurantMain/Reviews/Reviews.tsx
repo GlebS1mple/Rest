@@ -9,6 +9,7 @@ const Reviews = () => {
     const reviews = useSelector<AppStateType, Array<ReviewType>>(state => state.restaurant.restaurantReviews)
     return (
         <div className={s.main}>
+            <h2 className={s.heading}>Reviews</h2>
             {reviews.length > 0 ? reviews.map(review => <Review key={review.id} review={review} />) : 'Loading...'}
         </div>
     );

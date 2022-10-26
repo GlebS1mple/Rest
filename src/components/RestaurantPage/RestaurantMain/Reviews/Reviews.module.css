@@ -1,0 +1,11 @@
+.heading{
+    text-align: left;
+    font-family: 'Open Sans';
+    font-weight: 700;
+    font-size: 25px;
+    color: black;
+    margin: 0px 0px 30px 0px;
+}
+.main{
+    margin-top: 70px;
+}
