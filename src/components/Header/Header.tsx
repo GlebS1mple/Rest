@@ -5,12 +5,19 @@ import searchPhoto from '../../..//src/img/search.png'
 import { useDispatch, useSelector } from 'react-redux';
 import { actions, searchRestaurantsThunk } from './../../redux/mainReducer';
 import { AppStateType } from '../../redux/store';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 
 const Header: React.FC = () => {
+    let navigate = useNavigate()
+    let loc = useLocation();
     const [location, setLocation] = useState<string>('NewYork')
     const [restaurant, setRestaurant] = useState<string>('restaurants')
     const dispatch = useDispatch()
     const search = (e: React.MouseEvent<HTMLElement>) => {
+        if (loc.pathname === '/restaurant') {
+            navigate('/main')
+        }
         e.preventDefault()
         //@ts-ignore
         dispatch(actions.setLocationAC(location))
