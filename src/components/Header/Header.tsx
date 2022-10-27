@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import s from './Header.module.css'
 import logo from '../../../src/img/Logo.png'
 import searchPhoto from '../../..//src/img/search.png'
-import { useDispatch, useSelector } from 'react-redux';
-import { actions, searchRestaurantsThunk } from './../../redux/mainReducer';
-import { AppStateType } from '../../redux/store';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux'
+import { actions } from './../../redux/mainReducer'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 
 const Header: React.FC = () => {
@@ -19,7 +18,6 @@ const Header: React.FC = () => {
             navigate('/main')
         }
         e.preventDefault()
-        //@ts-ignore
         dispatch(actions.setLocationAC(location))
         dispatch(actions.setTermAC(restaurant))
     }

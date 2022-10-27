@@ -1,14 +1,12 @@
-import React from 'react';
-import Header from '../Header/Header';
+import React from 'react'
 import s from './App.module.css'
-import Main from '../Main/Main';
-import { Provider } from 'react-redux';
-import store, { AppStateType } from '../../redux/store';
-import MainPage from '../MainPage/MainPage';
-import { BrowserRouter } from 'react-router-dom';
-import { Routes } from 'react-router-dom';
-import { Route } from 'react-router-dom';
-import RestaurantPage from '../RestaurantPage/RestaurantPage';
+import { Provider } from 'react-redux'
+import store, { AppStateType } from '../../redux/store'
+import MainPage from '../MainPage/MainPage'
+import { BrowserRouter } from 'react-router-dom'
+import { Routes } from 'react-router-dom'
+import { Route } from 'react-router-dom'
+import RestaurantPage from '../RestaurantPage/RestaurantPage'
 
 const App: React.FC = () => {
 

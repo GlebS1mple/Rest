@@ -1,13 +1,13 @@
-import React from 'react';
-import LocationAndHours from '../LocationAndHours/LocationAndHours';
-import Reviews from '../Reviews/Reviews';
+import React from 'react'
+import LocationAndHours from '../LocationAndHours/LocationAndHours'
+import Reviews from '../Reviews/Reviews'
 
-const RestaurantInfo = () => {
+const RestaurantInfo: React.FC = () => {
     return (
-        <div>
+        <>
             <LocationAndHours />
             <Reviews />
-        </div>
+        </>
     );
 };
 

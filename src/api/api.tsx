@@ -47,11 +47,4 @@ export const resturantsAPI = {
         }
         return axios.request<Array<ReviewType>>(options).then(response => { return response.data });
     },
-    /*     getTodos() {
-            const options = {
-                method: 'GET',
-                url: 'http://localhost:6069/todos',
-            }
-            return axios.request(options).then(response => { return response.data });
-        } */
 }

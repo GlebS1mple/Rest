@@ -1,6 +1,6 @@
-import React from 'react';
-import Location from './Location/Location';
-import Hours from './Hours/Hours';
+import React from 'react'
+import Location from './Location/Location'
+import Hours from './Hours/Hours'
 import s from '../LocationAndHours/LocationAndHours.module.css'
 
 const LocationAndHours: React.FC = () => {

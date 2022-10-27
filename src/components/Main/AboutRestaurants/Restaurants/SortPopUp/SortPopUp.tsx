@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppStateType } from '../../../../../redux/store';
 import { SortType } from '../../../../../types/types';
 import { actions } from '../../../../../redux/mainReducer';
-const SortPopUp = () => {
+const SortPopUp: React.FC = () => {
     const isPopUpActive = useSelector<AppStateType, boolean>(state => state.main.isPopUpActive)
     const sortBy = useSelector<AppStateType, SortType>(state => state.main.sortBy)
     const dispatch = useDispatch()

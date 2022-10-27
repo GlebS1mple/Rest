@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import { AppStateType } from '../../../../redux/store'
 import s from '../RestaurantCard/RestaurantCard.module.css'
 import { useSelector } from 'react-redux'

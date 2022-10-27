@@ -8,7 +8,7 @@ import SwiperRestaurantSlide from './SwiperSlide/SwiperSlide'
 import s from '../PhotoSwiper/PhotoSwiper.module.css'
 import arrow from '../../../../../img/arrow.png'
 
-const PhotoSwiper = () => {
+const PhotoSwiper: React.FC = () => {
     const photos = useSelector<AppStateType, Array<string>>(state => state.restaurant.restaurant.photos)
     return (
         <Swiper
@@ -30,10 +30,10 @@ const PhotoSwiper = () => {
                 )}
             </div>
             <div id='prev'>
-                <img className={s.prev} src={arrow} alt="Предыдущая страница" />
+                <img className={s.prev} src={arrow} alt="Prev page" />
             </div>
             <div id='next'>
-                <img className={s.next} src={arrow} alt="Следующая страница" />
+                <img className={s.next} src={arrow} alt="Next page" />
             </div>
         </Swiper>
     );

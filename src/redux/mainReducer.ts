@@ -1,6 +1,6 @@
 import { Dispatch } from "redux"
 import { resturantsAPI } from "../api/api"
-import { RestaurantsType, CategoryType, PriceLevelType, SortType } from "../types/types"
+import { RestaurantsType, CategoryType, SortType } from "../types/types"
 import { BaseThunkType, InferActionsType } from "./store"
 
 export type ActionsTypes = InferActionsType<typeof actions>
@@ -131,8 +131,7 @@ export const getRestaurantsThunk = (): ThunkType => async (dispatch: Dispatch) =
         let data = await resturantsAPI.getRestaurants();
         dispatch(actions.setRestaurantsAC(data))
         //@ts-ignore
-        let newCoordinates = Object.values(data[0].coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })
-        //@ts-ignore
+        let newCoordinates: { lat: number, lng: number } = Object.values(data[0].coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })
         dispatch(actions.setMapCenter(newCoordinates))
     }
     catch (error: any) { alert(error.message) }
@@ -146,8 +145,7 @@ export const searchRestaurantsThunk = (term: string, location: string, price: st
         //dispatch(actions.setPriceLevelAC('1,2,3,4'))
         dispatch(actions.setRestaurantsAC(data));
         //@ts-ignore
-        let newCoordinates = Object.values(data[0].coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })
-        //@ts-ignore
+        let newCoordinates: { lat: number, lng: number } = Object.values(data[0].coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })
         dispatch(actions.setMapCenter(newCoordinates))
     }
     catch (error: any) { alert(error.message) }

@@ -1,12 +1,12 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { AppStateType } from '../../../../redux/store';
-import { OpenType, RestaurantType } from '../../../../types/types';
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { AppStateType } from '../../../../redux/store'
+import { OpenType, RestaurantType } from '../../../../types/types'
 import s from '../RestaurantGalerey/RestaurantGalerey.module.css'
-import PhotoSwiper from './PhotoSwiper/PhotoSwiper';
+import PhotoSwiper from './PhotoSwiper/PhotoSwiper'
 import star from '../../../../img/star.png'
 
-const RestaurantGallery = () => {
+const RestaurantGallery: React.FC = () => {
     const restaurant = useSelector<AppStateType, RestaurantType>(state => state.restaurant.restaurant)
     const arr = restaurant.hours.map(hour => hour.open.map(open => open))
     let days = arr[0]
@@ -48,5 +48,5 @@ const RestaurantGallery = () => {
         </div>
     )
 }
-//{restaurant.photos ? restaurant.photos.map(photo => <RestaurantPhoto img={photo} />) : 'Loading'}
+
 export default RestaurantGallery;

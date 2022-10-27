@@ -1,11 +1,11 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { AppStateType } from '../../../../redux/store';
-import { ReviewType } from '../../../../types/types';
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { AppStateType } from '../../../../redux/store'
+import { ReviewType } from '../../../../types/types'
 import s from '../Reviews/Reviews.module.css'
-import Review from './Review/Review';
+import Review from './Review/Review'
 
-const Reviews = () => {
+const Reviews: React.FC = () => {
     const reviews = useSelector<AppStateType, Array<ReviewType>>(state => state.restaurant.restaurantReviews)
     return (
         <div className={s.main}>
