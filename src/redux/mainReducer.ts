@@ -11,12 +11,6 @@ export const actions = {
             restaurants: restaurants
         } as const
     },
-    setFilteredRestaurantsAC: (filteredRestaurants: Array<RestaurantsType>) => {
-        return {
-            type: "MAIN/SET_FILTERED_RESTAURANTS",
-            filteredRestaurants: filteredRestaurants
-        } as const
-    },
     setPriceLevelAC: (priceLevel: string) => {
         return {
             type: "MAIN/SET_PRICE_LEVEL",
@@ -39,6 +33,12 @@ export const actions = {
         return {
             type: "MAIN/SET_SORT_BY",
             sortBy: sortBy
+        } as const
+    },
+    isFetchingAC: (isFetching: boolean) => {
+        return {
+            type: "MAIN/IS_FETCHING",
+            isFetching: isFetching
         } as const
     },
     isClosedAC: (isClosed: boolean) => {
@@ -113,7 +113,6 @@ let initialState = {
             transactions: ["pickup", "delivery"]
         }, */
     ] as Array<RestaurantsType>,
-    filteredRestaurants: [] as Array<RestaurantsType>,
     priceLevel: '1,2,3,4',
     term: 'restaurants' as string,
     location: 'New York' as string,
@@ -124,23 +123,30 @@ let initialState = {
     isOffersPickUp: false,
     sortBy: 'best_match' as SortType,
     isPopUpActive: false,
+    isFetching: false,
     mapCenter: { lat: 50, lng: 25 }
 }
 export const getRestaurantsThunk = (): ThunkType => async (dispatch: Dispatch) => {
     try {
-        let data = await resturantsAPI.getRestaurants();
+        dispatch(actions.isFetchingAC(true))
+        let data = await resturantsAPI.getRestaurants()
+        dispatch(actions.isFetchingAC(false))
         dispatch(actions.setRestaurantsAC(data))
         //@ts-ignore
         let newCoordinates: { lat: number, lng: number } = Object.values(data[0].coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })
         dispatch(actions.setMapCenter(newCoordinates))
     }
-    catch (error: any) { alert(error.message) }
+    catch (error: any) {
+        dispatch(actions.isFetchingAC(false))
+        alert(error.message)
+    }
 }
 export const searchRestaurantsThunk = (term: string, location: string, price: string, open_now: boolean, sortBy: SortType): ThunkType => async (dispatch: Dispatch) => {
     try {
+        dispatch(actions.isFetchingAC(true))
         let data = await resturantsAPI.getNewRestaurants(term, location, price, open_now, sortBy);
+        dispatch(actions.isFetchingAC(false))
         dispatch(actions.setRestaurantsAC(data))
-        dispatch(actions.setFilteredRestaurantsAC([]))
         dispatch(actions.isClosedAC(true))
         //dispatch(actions.setPriceLevelAC('1,2,3,4'))
         dispatch(actions.setRestaurantsAC(data));
@@ -148,7 +154,10 @@ export const searchRestaurantsThunk = (term: string, location: string, price: st
         let newCoordinates: { lat: number, lng: number } = Object.values(data[0].coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })
         dispatch(actions.setMapCenter(newCoordinates))
     }
-    catch (error: any) { alert(error.message) }
+    catch (error: any) {
+        dispatch(actions.isFetchingAC(false))
+        alert(error.message)
+    }
 }
 export type InitialStateType = typeof initialState;
 const mainReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
@@ -156,11 +165,6 @@ const mainReducer = (state = initialState, action: ActionsTypes): InitialStateTy
         case "MAIN/SET_RESTAURANTS": {
             return {
                 ...state, restaurants: [...action.restaurants]
-            }
-        }
-        case "MAIN/SET_FILTERED_RESTAURANTS": {
-            return {
-                ...state, filteredRestaurants: [...action.filteredRestaurants]
             }
         }
         case "MAIN/SET_PRICE_LEVEL": {
@@ -185,6 +189,12 @@ const mainReducer = (state = initialState, action: ActionsTypes): InitialStateTy
             return {
                 ...state,
                 sortBy: action.sortBy
+            }
+        }
+        case "MAIN/IS_FETCHING": {
+            return {
+                ...state,
+                isFetching: action.isFetching
             }
         }
         case "MAIN/IS_CLOSED": {

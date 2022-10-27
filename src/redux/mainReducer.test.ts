@@ -11,10 +11,10 @@ let state = {
     openNow: false,
     term: 'restaurants',
     sortBy: 'best_match',
-    filteredRestaurants: [],
     priceLevel: '1,2,3,4',
     isClosed: true,
     isPopUpActive: false,
+    isFetching: false,
     mapCenter: { lat: 50, lng: 25 }
 }
 jest.mock("./../api/api")
@@ -66,7 +66,6 @@ test('should handle searchRestaurantsThunk', async () => {
     expect(dispatchMock).toBeCalledTimes(4)
     //@ts-ignore
     expect(dispatchMock).toHaveBeenNthCalledWith(1, actions.setRestaurantsAC(data))
-    expect(dispatchMock).toHaveBeenNthCalledWith(2, actions.setFilteredRestaurantsAC([]))
     expect(dispatchMock).toHaveBeenNthCalledWith(3, actions.isClosedAC(true))
     expect(dispatchMock).toHaveBeenNthCalledWith(4, actions.setMapCenter({ lat: 50, lng: 25 }))
 })
@@ -109,94 +108,10 @@ test('should handle MAIN/SET_LOCATION', () => {
         location: 'NY',
     });
 });
-test('should handle MAIN/SET_FILTERED_RESTAURANTS', () => {
-    const previousState: InitialStateType = {
-        restaurants: [],
-        filteredRestaurants: [],
-        priceLevel: "1,2,3,4",
-        isClosed: false,
-        isOffersDelivery: false,
-        isOffersPickUp: false,
-        term: 'restaurants',
-        location: 'NY',
-        categories: null,
-        openNow: true,
-        mapCenter: { lat: 0, lng: 0 },
-        isPopUpActive: false,
-        sortBy: 'best_match'
-    }
-    const filteredRestaurants: RestaurantsType[] = [{
-        alias: 'Starbacks',
-        categories: [{ alias: 'Starbacks', title: 'Starbacks' }],
-        coordinates: { latitude: 0, longitude: 0 },
-        display_phone: '',
-        distance: '',
-        id: '',
-        image_url: '',
-        is_closed: true,
-        location: {
-            address1: '12',
-            address2: '14',
-            address3: '25',
-            city: 'London',
-            country: 'England',
-            display_address: [''],
-            state: '',
-            zip_code: '',
-        },
-        name: 'Starbacks',
-        phone: '',
-        price: '$$',
-        rating: 4.2,
-        review_count: 200,
-        transactions: [''],
-        url: '',
-    }]
-    expect(mainReducer(previousState, actions.setFilteredRestaurantsAC(filteredRestaurants))).toEqual({
-        filteredRestaurants: [{
-            alias: 'Starbacks',
-            categories: [{ alias: 'Starbacks', title: 'Starbacks' }],
-            coordinates: { latitude: 0, longitude: 0 },
-            display_phone: '',
-            distance: '',
-            id: '',
-            image_url: '',
-            is_closed: true,
-            location: {
-                address1: '12',
-                address2: '14',
-                address3: '25',
-                city: 'London',
-                country: 'England',
-                display_address: [''],
-                state: '',
-                zip_code: '',
-            },
-            name: 'Starbacks',
-            phone: '',
-            price: '$$',
-            rating: 4.2,
-            review_count: 200,
-            transactions: [''],
-            url: '',
-        }], restaurants: [],
-        isOffersDelivery: false,
-        isOffersPickUp: false,
-        location: 'NY',
-        categories: null,
-        openNow: true,
-        term: 'restaurants',
-        priceLevel: "1,2,3,4",
-        isClosed: false,
-        mapCenter: { lat: 0, lng: 0 },
-        isPopUpActive: false,
-        sortBy: 'best_match',
-    });
-});
+
 test('should handle MAIN/SET_RESTAURANTS', () => {
     const previousState: InitialStateType = {
         restaurants: [],
-        filteredRestaurants: [],
         priceLevel: "1,2,3,4",
         isClosed: false,
         isOffersDelivery: false,
@@ -204,6 +119,7 @@ test('should handle MAIN/SET_RESTAURANTS', () => {
         term: 'restaurants',
         location: 'NY',
         categories: null,
+        isFetching: false,
         openNow: true,
         mapCenter: { lat: 0, lng: 0 },
         isPopUpActive: false,
@@ -264,7 +180,6 @@ test('should handle MAIN/SET_RESTAURANTS', () => {
             transactions: [''],
             url: '',
         }],
-        filteredRestaurants: [],
         priceLevel: "1,2,3,4",
         isClosed: false,
         isOffersDelivery: false,
@@ -274,6 +189,7 @@ test('should handle MAIN/SET_RESTAURANTS', () => {
         categories: null,
         openNow: true,
         sortBy: 'best_match',
+        isFetching: false,
         isPopUpActive: false,
         mapCenter: { lat: 0, lng: 0 }
     });
