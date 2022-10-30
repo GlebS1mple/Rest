@@ -124,12 +124,17 @@ let initialState = {
     sortBy: 'best_match' as SortType,
     isPopUpActive: false,
     isFetching: false,
-    mapCenter: { lat: 50, lng: 25 }
+    mapCenter: { lat: 40.730610, lng: -73.935242 }
 }
 export const getRestaurantsThunk = (): ThunkType => async (dispatch: Dispatch) => {
     try {
         dispatch(actions.isFetchingAC(true))
         let data = await resturantsAPI.getRestaurants()
+        dispatch(actions.isClosedAC(true))
+        dispatch(actions.setPriceLevelAC('1,2,3,4'))
+        dispatch(actions.setSortByAC('best_match'))
+        dispatch(actions.setLocationAC('NY'))
+        dispatch(actions.setTermAC('restaurants'))
         dispatch(actions.isFetchingAC(false))
         dispatch(actions.setRestaurantsAC(data))
         //@ts-ignore
@@ -137,7 +142,7 @@ export const getRestaurantsThunk = (): ThunkType => async (dispatch: Dispatch) =
         dispatch(actions.setMapCenter(newCoordinates))
     }
     catch (error: any) {
-        dispatch(actions.isFetchingAC(false))
+        //dispatch(actions.isFetchingAC(false))
         alert(error.message)
     }
 }
@@ -145,17 +150,14 @@ export const searchRestaurantsThunk = (term: string, location: string, price: st
     try {
         dispatch(actions.isFetchingAC(true))
         let data = await resturantsAPI.getNewRestaurants(term, location, price, open_now, sortBy);
-        dispatch(actions.isFetchingAC(false))
         dispatch(actions.setRestaurantsAC(data))
-        dispatch(actions.isClosedAC(true))
-        //dispatch(actions.setPriceLevelAC('1,2,3,4'))
-        dispatch(actions.setRestaurantsAC(data));
         //@ts-ignore
         let newCoordinates: { lat: number, lng: number } = Object.values(data[0].coordinates).reduce(function (prev, curr) { return { lat: prev, lng: curr } })
         dispatch(actions.setMapCenter(newCoordinates))
+        dispatch(actions.isFetchingAC(false))
     }
     catch (error: any) {
-        dispatch(actions.isFetchingAC(false))
+        // dispatch(actions.isFetchingAC(false))
         alert(error.message)
     }
 }

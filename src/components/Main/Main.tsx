@@ -18,7 +18,7 @@ const Main: React.FC = () => {
     let dispatch = useDispatch()
     useEffect(() => {
         //@ts-ignore
-        dispatch(getRestaurantsThunk())
+        dispatch((searchRestaurantsThunk(term, location, priceLevel, isClosed, sortBy)))
     }, [])
     useEffect(() => {
         //@ts-ignore

@@ -45,6 +45,10 @@
     font-weight: normal;
     font-size: 2rem;
 }
+.about{
+    display: flex;
+    align-items: center;
+}
 .closed{
     color: rgb(179, 54, 54);
     margin-right: 10px;
@@ -64,4 +68,5 @@
     font-weight: normal;
     font-size: 2rem;
     margin: 0px 0px 0px 0px;
+    margin-right: 10px;
 }

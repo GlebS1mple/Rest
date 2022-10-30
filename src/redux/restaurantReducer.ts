@@ -1,6 +1,6 @@
 import { Dispatch } from "redux"
 import { resturantsAPI } from "../api/api"
-import { RestaurantsType, RestaurantType, ReviewType, } from "../types/types"
+import { RestaurantType, ReviewType, } from "../types/types"
 import { BaseThunkType, InferActionsType } from "./store"
 
 export type ActionsTypes = InferActionsType<typeof actions>

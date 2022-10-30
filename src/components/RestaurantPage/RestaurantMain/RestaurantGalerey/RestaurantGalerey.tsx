@@ -32,8 +32,9 @@ const RestaurantGallery: React.FC = () => {
                             </div>
                             <p className={s.reviews}>{restaurant.review_count} reviews</p>
                         </div>
-                        <div className="">
+                        <div className={s.about}>
                             <p className={s.categories}>{restaurant.categories && restaurant.categories.map(cat => `${cat.title} `)}</p>
+                            <p className={s.price}>{restaurant.price}</p>
                         </div>
                         <div className={s.block}>
                             {restaurant.is_closed ?

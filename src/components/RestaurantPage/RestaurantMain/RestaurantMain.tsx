@@ -6,11 +6,11 @@ import { RestaurantType } from '../../../types/types'
 import RestaurantGallery from './RestaurantGalerey/RestaurantGalerey'
 import RestaurantInfo from './RestaurantInfo/RestaurantInfo'
 import RestaurantCard from './RestaurantCard/RestaurantCard'
-
+import loading from '.././../../img/Loader.gif'
 const RestaurantMain: React.FC = () => {
     const restaurant = useSelector<AppStateType, RestaurantType>(state => state.restaurant.restaurant)
     return (
-        <div>
+        <div >
             {restaurant.id ?
                 <>
                     <RestaurantGallery />
@@ -19,7 +19,10 @@ const RestaurantMain: React.FC = () => {
                         <RestaurantCard />
                     </div>
                 </>
-                : 'Loading'}
+                : <div className={s.block}>
+                    <img className={s.loader} src={loading} alt="Loading" />
+                </div>}
+
         </div>
     );
 };

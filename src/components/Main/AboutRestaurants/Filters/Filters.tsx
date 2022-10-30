@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { actions } from '../../../../redux/mainReducer';
 import { AppStateType } from '../../../../redux/store';
+import { getRestaurantsThunk } from './../../../../redux/mainReducer';
 
 
 const Filters: React.FC = () => {
@@ -18,12 +19,19 @@ const Filters: React.FC = () => {
     const changeHandler = (isClosed: boolean) => {
         dispatch(actions.isClosedAC(isClosed))
     }
+    const reset = () => {
+        //@ts-ignore
+        dispatch(getRestaurantsThunk())
+    }
     let date = new Date()
     let hours = date.getHours()
     let minutes = date.getMinutes()
     return (
         <div className={s.main}>
             <h3 className={s.heading}>Filters</h3>
+            <button onClick={() => { reset() }} className={s.reset}>
+                Reset filters
+            </button>
             <div role='button' onClick={(e: any) => clickHandler(e)} className={s.prices}>
                 <button className={price === '1' ? `${s.price} ${s.leftPrice__active}` : `${s.price} ${s.leftPrice}`}>$</button>
                 <button className={price === '2' ? s.price__active : s.price}>$$</button>

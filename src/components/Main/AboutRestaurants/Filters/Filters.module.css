@@ -70,3 +70,12 @@
     width: 15px;
     height: 15px;
 }
+.reset{
+    text-align: left;
+    margin-bottom: 15px;
+    border: none;
+    color: grey;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+}
