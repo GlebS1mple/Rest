@@ -1,9 +1,7 @@
 .main{
     display:flex;
     justify-content:space-between;
-margin-left: auto;
-    padding: 0px 0px 0px 15px;
-    max-width: 1300px;
+    padding: 0px 0px 0px 40px;
 }
 .sticky{
     display: flex;
