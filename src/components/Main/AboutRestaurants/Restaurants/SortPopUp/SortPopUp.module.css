@@ -47,6 +47,7 @@
 .main{
     margin-right: 10px;
     display: flex;
+    align-items: center;
 }
 .popup{
 display: none;

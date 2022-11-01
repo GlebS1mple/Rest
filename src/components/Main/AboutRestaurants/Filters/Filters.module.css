@@ -1,6 +1,7 @@
 .main{
     display: flex;
     flex-direction: column;
+    flex: 0 1 10%;
 }
 .heading{
     font-family: 'Montserrat';
@@ -78,4 +79,26 @@
     outline: none;
     background-color: transparent;
     cursor: pointer;
+}
+@media(max-width:1300px){
+    .heading{
+        display: none;
+    }
+    .main{
+        align-items: center;
+        position: absolute;
+        top: 85px;
+        left: 0px;
+        flex-direction: row;
+    }
+    .reset,
+    .prices{
+        margin-bottom: 0px;
+        margin-right: 10px;
+    }   
+}
+@media(max-width:682px){
+    .main{
+        top: 55px;
+    }
 }
