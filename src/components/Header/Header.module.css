@@ -1,4 +1,3 @@
-
 .container{
     height: 90px;
     margin: 0px auto;
@@ -33,6 +32,8 @@
 .log{
     display: flex;
     align-items: center;
+    text-decoration: none;
+    color: black;
 }
 .name{
     font-family: 'Montserrat';

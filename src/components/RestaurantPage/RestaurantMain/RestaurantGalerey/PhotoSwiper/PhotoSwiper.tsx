@@ -18,8 +18,21 @@ const PhotoSwiper: React.FC = () => {
                 nextEl: '#next',
                 prevEl: '#prev',
             }}
+            breakpoints={{
+                0: {
+                    slidesPerView: 1,
+                },
+                767: {
+                    slidesPerView: 1.7,
+                },
+                820: {
+                    slidesPerView: 2,
+                },
+                1100: {
+                    slidesPerView: 2.2,
+                },
+            }}
             spaceBetween={0}
-            slidesPerView={2.2}
             slideToClickedSlide={false}
         >
             <div className={s.swiper}>

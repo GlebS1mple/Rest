@@ -1,9 +1,12 @@
 .main{
-    margin-left:20px;
     display: flex;
     font-family: 'Open sans';
     font-size: 18px;
     font-weight: bold;
+}
+.block{
+    margin-left:20px;
+    display: flex;
 }
 .day{
     margin-right: 30px;
@@ -19,4 +22,31 @@
 }
 .isClosed{
     color:rgb(179, 54, 54);
+}
+@media(max-width:1300px){
+    .block{
+        flex-direction: column;
+    }
+    .isOpen,.isClosed{
+        margin-top: 10px;
+        align-self: center;
+    }
+}
+@media(max-width:600px){
+    .block{
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 15px;
+        width: 100%;
+        margin-left: 0px;
+    }
+}
+@media(max-width:300px){
+    .block{
+        flex-direction: column;
+    }
+    .isOpen,.isClosed{
+        margin-top: 10px;
+        align-self: center;
+    }
 }

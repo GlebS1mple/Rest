@@ -11,7 +11,7 @@ const Hours: React.FC = () => {
     const open = restaurant.hours.map(hour => hour.open.map(open => open))
     let monday = open[0].filter(day => day.day === 0)
     return (
-        <>
+        <div className={s.block}>
             <div className={s.main}>
                 <div className={s.day}>
                     {open[0].map((day, index) => <Day key={index} open={day} />)}
@@ -23,7 +23,7 @@ const Hours: React.FC = () => {
             <div className={restaurant.is_closed ? `${s.isClosed}` : `${s.isOpen}`}>
                 {restaurant.is_closed ? 'Closed now' : 'Open now'}
             </div>
-        </>
+        </div>
     );
 };
 
