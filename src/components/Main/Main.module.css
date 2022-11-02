@@ -10,6 +10,9 @@
     top: 90px;
     max-height: 100vh;
 }
+.btn{
+    display: none;
+}
 @media(max-width:1200px){
     .main{
         padding: 0px 0px 0px 30px;
@@ -25,4 +28,20 @@
         padding: 0px 15px 0px 15px;
         display: block;
     }
+    .btnActive{
+        padding: 10px 0px 10px 0px;
+        outline: none;
+        border-radius: 5px;
+        border: none;
+        position: absolute;
+        bottom: 3px;
+        left: 2.5%;
+        width: 95%;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        color: tomato;
+        display: flex;
+    }
+
 }

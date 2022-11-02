@@ -47,6 +47,12 @@ export const actions = {
             isClosed: isClosed
         } as const
     },
+    isListAC: (isList: boolean) => {
+        return {
+            type: "MAIN/IS_LIST",
+            isList: isList
+        } as const
+    },
     isOffersDeliveryAC: (isOffersDelivery: boolean) => {
         return {
             type: "MAIN/IS_OFFERS_DELIVERY",
@@ -124,6 +130,7 @@ let initialState = {
     sortBy: 'best_match' as SortType,
     isPopUpActive: false,
     isFetching: false,
+    isList: true,
     mapCenter: { lat: 40.730610, lng: -73.935242 }
 }
 export const getRestaurantsThunk = (): ThunkType => async (dispatch: Dispatch) => {
@@ -203,6 +210,12 @@ const mainReducer = (state = initialState, action: ActionsTypes): InitialStateTy
             return {
                 ...state,
                 isClosed: action.isClosed
+            }
+        }
+        case "MAIN/IS_LIST": {
+            return {
+                ...state,
+                isList: action.isList
             }
         }
         case "MAIN/IS_POP_UP_ACTIVE": {

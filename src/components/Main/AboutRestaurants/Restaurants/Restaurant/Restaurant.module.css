@@ -9,12 +9,22 @@ p{
     font-size: 15px;
     text-decoration: none;
     color: black;
+    position: relative;
+    box-sizing: border-box;
 }
 .main:hover{
     cursor: pointer;
     box-shadow: 0 0 10px #0000001a;
     transition: all 0.9s;
 }
+/* .main::after{
+    content: '';
+    width: 95%;
+    border-bottom: 1px solid grey;
+    position: absolute;
+    top: 0px;
+    left: 15px;
+} */
 .img{
     width: 200px;
     height: 200px;
@@ -133,6 +143,9 @@ p{
     color:grey;
 }
 @media(max-width:950px){
+    .main{
+        padding: 10px;
+    }
     .food{
         max-width: 17rem;
     }
@@ -178,7 +191,7 @@ p{
     .main{
         min-width: 100%;
         flex: 1 1 100%;
-        padding: 0px;
+        padding: 5px;
         margin-bottom: 20px;
     }
     .about{
@@ -201,6 +214,19 @@ p{
         margin-bottom: 5px;
     }
     .img{
-        height: 230px;
+        width: 130px;
+        height: 130px;
+    }
+}
+@media(max-width:400px){
+    .features{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+@media(max-width:300px){
+    .img{
+        width: 90px;
+        height: 90px;
     }
 }

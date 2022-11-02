@@ -15,6 +15,7 @@ let state = {
     isClosed: true,
     isPopUpActive: false,
     isFetching: false,
+    isList: true,
     mapCenter: { lat: 40.73061, lng: -73.935242 }
 }
 jest.mock("./../api/api")
@@ -136,6 +137,7 @@ test('should handle MAIN/SET_RESTAURANTS', () => {
         openNow: true,
         mapCenter: { lat: 0, lng: 0 },
         isPopUpActive: false,
+        isList: true,
         sortBy: 'best_match',
     }
     const restaurants: RestaurantsType[] = [{
@@ -178,6 +180,7 @@ test('should handle MAIN/SET_RESTAURANTS', () => {
         sortBy: 'best_match',
         isFetching: false,
         isPopUpActive: false,
+        isList: true,
         mapCenter: { lat: 0, lng: 0 }
     });
 });

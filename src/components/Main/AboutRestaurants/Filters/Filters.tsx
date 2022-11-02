@@ -40,7 +40,7 @@ const Filters: React.FC = () => {
             </div>
             <label htmlFor="isOpen" className={s.label}>
                 <input onChange={() => { changeHandler(!isClosed) }} className={s.checkbox} type="checkbox" name="isOpen" id="isOpen" />
-                <p className={s.isOpen}>Open now {`${hours}:${minutes}`}</p>
+                <p className={s.isOpen}>Open now <span className={s.hours}>{`${hours}:${minutes}`}</span> </p>
             </label>
         </div>
     );
