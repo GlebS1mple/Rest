@@ -13,8 +13,8 @@ dotenv.config()
 const app = express();
 app.use(express.static(path.join(__dirname, '/build')));
 
-/* app.use(express.static(__dirname))
-app.use(express.static(path.resolve(__dirname))) */
+app.use(express.static(__dirname))
+app.use(express.static(path.resolve(__dirname)))
 
 app.use(cors({
     exposedHeaders: '*',
