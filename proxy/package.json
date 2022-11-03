@@ -1,6 +1,7 @@
 {
     "type": "module",
     "dependencies": {
-        "dotenv": "^16.0.2"
+        "dotenv": "^16.0.2",
+        "nvm": "^0.0.4"
     }
 }

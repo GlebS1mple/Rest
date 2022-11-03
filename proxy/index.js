@@ -96,7 +96,6 @@ app.get('*', (req, res) => {
 /* 
 app.get(':endpoint([\\/\\w\\.-]*)', async (req, res) => {
     let endpoint = process.env.API_BASE_URL + req.params.endpoint
-
     let params = {}
     if (!!process.env.API_TERM_NAME && !!process.env.API_TERM) {
         params[process.env.API_TERM_NAME] = process.env.API_TERM
@@ -118,5 +117,5 @@ app.get(':endpoint([\\/\\w\\.-]*)', async (req, res) => {
  })
  res.json(await response.json()) 
 })*/
-const port = 6069
+const port = process.env.PORT || 6069
 app.listen(port, () => { console.log(`proxy started at ${port}`) })
