@@ -5,21 +5,33 @@ import express from 'express'
 import cors from 'cors'
 import axios from 'axios'
 import dotenv from 'dotenv'
+import path from 'path'
+import { fileURLToPath } from 'url'
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 dotenv.config()
 const app = express();
+app.use(express.static(path.join(__dirname, '/build')));
 
-
+/* app.use(express.static(__dirname))
+app.use(express.static(path.resolve(__dirname))) */
 
 app.use(cors({
     exposedHeaders: '*',
     origin: '*',
 }))
+
+/* app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/index.html'))
+}) */
+
 app.get('/restaurants', (req, res) => {
     const term = req.query.term
     const location = req.query.location
     const price = req.query.price
     const open_now = req.query.open_now
     const sort_by = req.query.sort_by
+    console.log(process.env.API_KEY)
     const options = {
         method: 'GET',
         url: process.env.API_BASE_URL + '/search?',
