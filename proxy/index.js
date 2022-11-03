@@ -9,9 +9,10 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+console.log(__dirname)
 dotenv.config()
 const app = express();
-app.use(express.static(path.join(__dirname, '/build')));
+app.use(express.static(path.join(__dirname, '/client/build')));
 
 app.use(express.static(__dirname))
 app.use(express.static(path.resolve(__dirname)))
@@ -20,10 +21,6 @@ app.use(cors({
     exposedHeaders: '*',
     origin: '*',
 }))
-
-/* app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/index.html'))
-}) */
 
 app.get('/restaurants', (req, res) => {
     const term = req.query.term
@@ -78,6 +75,9 @@ app.get('/reviews', (req, res) => {
         }
     }
     return axios.request(options).then(response => { res.json(response.data.reviews) }).catch((error) => { console.log(error) });
+})
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/client/build/index.html'))
 })
 /* app.get('/todos', (req, res) => {
     const term = req.query.term
