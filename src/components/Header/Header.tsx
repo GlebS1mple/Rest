@@ -5,7 +5,7 @@ import searchPhoto from '../../..//src/img/search.png'
 import { useDispatch } from 'react-redux'
 import { actions } from './../../redux/mainReducer'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 
 const Header: React.FC = React.memo(() => {
