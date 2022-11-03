@@ -1,5 +1,3 @@
-
-import fetch from 'node-fetch';
 import express from 'express'
 /* const { createProxyMiddleware } = require('http-proxy-middleware') */
 import cors from 'cors'
@@ -14,9 +12,6 @@ dotenv.config()
 const app = express();
 app.use(express.static(path.join(__dirname, '/client/build')));
 
-app.use(express.static(__dirname))
-app.use(express.static(path.resolve(__dirname)))
-
 app.use(cors({
     exposedHeaders: '*',
     origin: '*',
@@ -28,7 +23,6 @@ app.get('/restaurants', (req, res) => {
     const price = req.query.price
     const open_now = req.query.open_now
     const sort_by = req.query.sort_by
-    console.log(process.env.API_KEY)
     const options = {
         method: 'GET',
         url: process.env.API_BASE_URL + '/search?',
