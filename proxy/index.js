@@ -11,11 +11,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config()
 const app = express();
-app.use(express.static(path.join(__dirname, "..", "build")));
-app.use(express.static("public"));
 
-/* app.use(express.static(__dirname))
-app.use(express.static(path.resolve(__dirname))) */
 
 app.use(cors({
     exposedHeaders: '*',
@@ -30,7 +26,7 @@ app.get('/restaurants', (req, res) => {
     const sort_by = req.query.sort_by
     const options = {
         method: 'GET',
-        url: process.env.API_BASE_URL + '/search?',
+        url: 'https://api.yelp.com/v3/businesses' + '/search?',
         params: {
             term: term,
             location: location,
@@ -39,7 +35,7 @@ app.get('/restaurants', (req, res) => {
             sort_by: sort_by
         },
         headers: {
-            Authorization: process.env.API_KEY,
+            Authorization: 'Bearer yvxVC64cwuHI6Ezfn6UGLpwswmyHWio2pfb0Qpd5SDhgpTT0ZbddWSX5kutP_W0S2PNnY_InUHtuW7EOZ5615jmooqSbCaznk4Q0LVSSMKbMj8bMUedQqU97Xd8MY3Yx',
             "Access-Control-Allow-Origin": "*",
             'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
             'Access-Control-Allow-Headers': '*'
@@ -51,9 +47,9 @@ app.get('/restaurant', (req, res) => {
     const id = req.query.id
     const options = {
         method: 'GET',
-        url: process.env.API_BASE_URL + `/${id}`,
+        url: 'https://api.yelp.com/v3/businesses' + `/${id}`,
         headers: {
-            Authorization: process.env.API_KEY,
+            Authorization: 'Bearer yvxVC64cwuHI6Ezfn6UGLpwswmyHWio2pfb0Qpd5SDhgpTT0ZbddWSX5kutP_W0S2PNnY_InUHtuW7EOZ5615jmooqSbCaznk4Q0LVSSMKbMj8bMUedQqU97Xd8MY3Yx',
             "Access-Control-Allow-Origin": "*",
             'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
             'Access-Control-Allow-Headers': '*'
@@ -65,9 +61,9 @@ app.get('/reviews', (req, res) => {
     const id = req.query.id
     const options = {
         method: 'GET',
-        url: process.env.API_BASE_URL + `/${id}/reviews`,
+        url: 'https://api.yelp.com/v3/businesses' + `/${id}/reviews`,
         headers: {
-            Authorization: process.env.API_KEY,
+            Authorization: 'Bearer yvxVC64cwuHI6Ezfn6UGLpwswmyHWio2pfb0Qpd5SDhgpTT0ZbddWSX5kutP_W0S2PNnY_InUHtuW7EOZ5615jmooqSbCaznk4Q0LVSSMKbMj8bMUedQqU97Xd8MY3Yx',
             "Access-Control-Allow-Origin": "*",
             'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
             'Access-Control-Allow-Headers': '*'
@@ -75,6 +71,8 @@ app.get('/reviews', (req, res) => {
     }
     return axios.request(options).then(response => { res.json(response.data.reviews) }).catch((error) => { console.log(error) });
 })
+app.use(express.static(path.join(__dirname, "..", "build")));
+app.use(express.static("public"));
 app.use((req, res, next) => {
     res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
@@ -94,7 +92,7 @@ app.use((req, res, next) => {
 }) */
 /* 
 app.get(':endpoint([\\/\\w\\.-]*)', async (req, res) => {
-    let endpoint = process.env.API_BASE_URL + req.params.endpoint
+    let endpoint = 'https://api.yelp.com/v3/businesses' + req.params.endpoint
     let params = {}
     if (!!process.env.API_TERM_NAME && !!process.env.API_TERM) {
         params[process.env.API_TERM_NAME] = process.env.API_TERM
