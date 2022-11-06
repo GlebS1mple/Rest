@@ -75,9 +75,9 @@ app.get('/reviews', (req, res) => {
     }
     return axios.request(options).then(response => { res.json(response.data.reviews) }).catch((error) => { console.log(error) });
 })
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "build", "index.html"))
-})
+app.use((req, res, next) => {
+    res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+});
 /* app.get('/todos', (req, res) => {
     const term = req.query.term
     const location = req.query.location
