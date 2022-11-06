@@ -1,5 +1,6 @@
 
 import express from 'express'
+
 /* const { createProxyMiddleware } = require('http-proxy-middleware') */
 import cors from 'cors'
 import axios from 'axios'
@@ -8,7 +9,6 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-console.log(__dirname)
 dotenv.config()
 const app = express();
 app.use(express.static(path.join(__dirname, "..", "build")));
@@ -28,7 +28,6 @@ app.get('/restaurants', (req, res) => {
     const price = req.query.price
     const open_now = req.query.open_now
     const sort_by = req.query.sort_by
-    console.log(process.env.API_KEY)
     const options = {
         method: 'GET',
         url: process.env.API_BASE_URL + '/search?',
@@ -77,7 +76,7 @@ app.get('/reviews', (req, res) => {
     return axios.request(options).then(response => { res.json(response.data.reviews) }).catch((error) => { console.log(error) });
 })
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/build/index.html'))
+    res.sendFile(path.join(__dirname, "..", "build", "index.html"))
 })
 /* app.get('/todos', (req, res) => {
     const term = req.query.term
