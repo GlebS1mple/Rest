@@ -116,4 +116,5 @@ app.get(':endpoint([\\/\\w\\.-]*)', async (req, res) => {
  res.json(await response.json()) 
 })*/
 const port = process.env.PORT || 6069
+console.log(port)
 app.listen(port, () => { console.log(`proxy started at ${port}`) })
