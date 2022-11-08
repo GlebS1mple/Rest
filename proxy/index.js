@@ -71,9 +71,9 @@ app.get('/reviews', (req, res) => {
     }
     return axios.request(options).then(response => { res.json(response.data.reviews) }).catch((error) => { console.log(error) });
 })
+app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, "..", "build")));
-app.use(express.static("public"));
-app.use((req, res, next) => {
+app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
 /* app.get('/todos', (req, res) => {

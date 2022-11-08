@@ -38,7 +38,7 @@
     "yarn": "^1.22.19"
   },
   "scripts": {
-    "start": "yarn run build && (cd proxy && node index)",
+    "start": "node proxy/index.js",
     "start-client": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
